@@ -6,7 +6,15 @@ cursor = conn.cursor()
 
 #create a table
 cursor.execute("""CREATE TABLE films
-                (id integer, title text, release_year integer, format text, stars text)
+                (id_film integer primary key, title text, release_year integer, format text, stars text)
+               """)
+
+cursor.execute("""CREATE TABLE stars
+                (id_star integer primary key, firstname_star text, secondname_stars text)
+               """)
+
+cursor.execute("""CREATE TABLE films_stars
+                (id_film integer, id_star integer, foreign key (id_film) REFERENCES fillm(id_film), foreign key (id_star) REFERENCES stars(id_star)
                """)
 
 #insert some data
