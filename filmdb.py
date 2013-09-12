@@ -1,30 +1,28 @@
+# -*- coding: cp1251 -*-
 import sqlite3
-
+#connect database
 conn = sqlite3.connect("filmbase.db")
-
-cursor = conn.cursor()
-
-#create a table
-cursor.execute("""CREATE TABLE films
-                (id_film integer primary key, title text, release_year integer, format text, stars text)
-               """)
-
-cursor.execute("""CREATE TABLE stars
-                (id_star integer primary key, firstname_star text, secondname_stars text)
-               """)
-
-cursor.execute("""CREATE TABLE films_stars
-                (id_film integer, id_star integer, foreign key (id_film) REFERENCES fillm(id_film), foreign key (id_star) REFERENCES stars(id_star)
-               """)
-
+#
+#open cursor
+cursor = con.cursor()
+#create tables
+cursor.execute('CREATE TABLE IF NOT EXISTS formats (id INTEGER PRIMARY KEY AUTOINCREMENT NO NULL, format VARCHAR(7))')
+con.commit
+cursor.execute('CREATE TABLE IF NOT EXISTS films (id INTEGER PRIMARY KEY AUTOINCREMENT NO NULL, title VARCHAR(30), yearrelease INTEGER)')
+con.commit
+cursor.execute('CREATE TABLE IF NOT EXISTS stars (id INTEGER PRIMARY KEY AUTOINCREMENT NO NULL, firstname VARCHAR(30), secondname VARCHAR(30))')
+con.commit
+cursor.execute('CREATE TABLE IF NOT EXISTS film_star (films_id INTEGER NOT NULL, stars_id INTEGER NOT NULL, PRIMARY KEY (film_id, star_id), CONSTRAINT film_id_fk FOREIGN KEY (film_id) REFERENCES film(id), CONSTRAINT film_id_fk FOREIGN KEY (film_id) REFERENCES film(id))')
+con.commit
+#
 #insert some data
-cursor.execute ("INSERT INTO films VALUES (0001, 'Blazing Saddles', 1974, 'VHS', 'Mel Brooks')")
-
+#cursor.execute ("INSERT INTO films VALUES (0001, 'Blazing Saddles', 1974, 'VHS', 'Mel Brooks')")
+#
 #save data to database
-conn.commit ()
-
+#conn.commit ()
+#
 #insert multiple records
-films =[(0002, 'Role', 1982, 'VDS', 'Some'),
-        (0003, 'Role 2', 1983, 'VDS', 'Some')]
-cursor.executemany("INSERT INTO films VALUES(?,?)", films)
-conn.commit
+#films =[(0002, 'Role', 1982, 'VDS', 'Some'),
+#        (0003, 'Role 2', 1983, 'VDS', 'Some')]
+#cursor.executemany("INSERT INTO films VALUES(?,?)", films)
+#conn.commit
