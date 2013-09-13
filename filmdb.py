@@ -6,6 +6,7 @@ conn = sqlite3.connect("filmbase.db")
 #open cursor
 c = conn.cursor()
 #create tables Section
+PRAGMA foreign_keys=ON
 c.execute('''CREATE TABLE formats (id INTEGER PRIMARY KEY AUTOINCREMENT NO NULL, format VARCHAR(7))''')
 conn.commit()
 c.execute('''CREATE TABLE films (id INTEGER PRIMARY KEY AUTOINCREMENT NO NULL, title VARCHAR(30), yearrelease INTEGER)''')
