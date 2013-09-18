@@ -15,13 +15,13 @@ c.execute('''CREATE TABLE IF NOT EXISTS films (id INTEGER PRIMARY KEY AUTOINCREM
 conn.commit()
 c.execute('''CREATE TABLE IF NOT EXISTS stars (id INTEGER PRIMARY KEY AUTOINCREMENT, firstname VARCHAR(30), secondname VARCHAR(30))''')
 conn.commit()
-#c.execute('''CREATE TABLE film_star (film_id INTEGER, star_id INTEGER, FOREIGN KEY (film_id) REFERENCES films(id), FOREIGN KEY (star_id) REFERENCES stars(id)''')
-#
+#many-many
 c.execute('''CREATE TABLE IF NOT EXISTS film_star (film_id INTEGER, star_id INTEGER, FOREIGN KEY (film_id) REFERENCES films(id), FOREIGN KEY (star_id) REFERENCES stars(id)) ''')
 conn.commit()
 #
-#insert some data
-#cursor.execute ("INSERT INTO films VALUES (0001, 'Blazing Saddles', 1974, 'VHS', 'Mel Brooks')")
+#insert 1 some data
+c.execute ("INSERT INTO films VALUES (NULL, 'Blazing Saddles', 1974)")
+#c.execute ("INSERT INTO films VALUES (NULL, 'Blazing Saddles', 1974, 'VHS', 'Mel Brooks')")
 #
 #save data to database
 #conn.commit ()
