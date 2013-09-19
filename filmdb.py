@@ -4,7 +4,7 @@ import sqlite3
 #function to make database for films
 def make_db():
 #connect database
-    conn = sqlite3.connect("filmbase.db")
+    conn = sqlite3.connect('filmbase.db')
 
 #open cursor
     c = conn.cursor()
@@ -39,10 +39,10 @@ def inst_db():
 #films =[(0002, 'Role', 1982, 'VDS', 'Some'),
 #        (0003, 'Role 2', 1983, 'VDS', 'Some')]
 #cursor.executemany("INSERT INTO films VALUES(?,?)", films)
-conn.close()
+    conn.close()
 def main():
     make_db()
     inst_db()
 
-if __name__ = "__main__":
+if __name__ == "__main__":
     main()
