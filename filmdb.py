@@ -27,7 +27,7 @@ def make_db():
 def inst_db():
     conn = sqlite3.connect("filmbase.db")
     b = conn.cursor()
-    b.execute ("INSERT INTO films VALUES (NULL, 'Blazing Saddles', 1974)")
+    b.execute ("INSERT INTO films (id, title, yearrelease) VALUES (NULL, 'Blazing Saddles', 1974)")
     conn.commit()
     conn.close()
 #c.execute ("INSERT INTO films VALUES (NULL, 'Blazing Saddles', 1974, 'VHS', 'Mel Brooks')")
