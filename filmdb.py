@@ -37,12 +37,19 @@ def inst_db():
 #
 #insert multiple records
 #films =[(0002, 'Role', 1982, 'VDS', 'Some'),
-#        (0003, 'Role 2', 1983, 'VDS', 'Some')]
+# (0003, 'Role 2', 1983, 'VDS', 'Some')]
 #cursor.executemany("INSERT INTO films VALUES(?,?)", films)
+    #conn.close()
+def inst_pl_db():
+    dict = {"id":NULL, "title":'Blazing Saddles', "yearrelaease":1974}
+    conn = sqlite3.connect("filmbase.db")
+    c = conn.cursor()
+#    c.execute ("INSERT INTO stocks (id, title, yearrelease) VALUES (?,?,?)", [dict["id"], dict["titls"], dict["yearrelease"]
+    conn.commit()
     conn.close()
 def main():
     make_db()
-    inst_db()
+    inst_pl_db()
 
 if __name__ == "__main__":
     main()
