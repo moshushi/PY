@@ -1,0 +1,4 @@
+#ignore db files
+*.db
+#ignore swap files vim
+*.swp
