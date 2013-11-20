@@ -15,21 +15,18 @@ def make_row_dictionary():
 def out_row_dictionary():
     print globalD
 def add_row_dictionary_simple():
-    global globalS
-    print ("inter title")
-    n = raw_input()
-#    print ("inter year realese film")
-#    m = raw_input()
-    globalS['title'] = n
-#    globalS['yearrelease'] = m
-    print globalS
+    global globalD
+    n = raw_input("Enter title: ")
+    m = raw_input("Enter year release film: ")
+    globalD['title'] = n
+    globalD['yearrelease'] = m
 
 def main():
     #in_row()
     #out_row()
     #make_row_dictionary()
     add_row_dictionary_simple()
-#    out_row_dictionary()
+    out_row_dictionary()
 
 if __name__ ==  "__main__":
     main()
