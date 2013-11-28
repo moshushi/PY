@@ -12,16 +12,17 @@ def make_db():
     c.execute('PRAGMA foreign_keys = ON')
 
 #create tables Section
-    c.execute('''CREATE TABLE IF NOT EXISTS formats (id INTEGER PRIMARY KEY AUTOINCREMENT, format VARCHAR(7))''')
-    conn.commit()
-    c.execute('''CREATE TABLE IF NOT EXISTS films (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(30), yearrelease INTEGER)''')
-    conn.commit()
-    c.execute('''CREATE TABLE IF NOT EXISTS stars (id INTEGER PRIMARY KEY AUTOINCREMENT, firstname VARCHAR(30), secondname VARCHAR(30))''')
-    conn.commit()
-#many-many
-    c.execute('''CREATE TABLE IF NOT EXISTS film_star (film_id INTEGER, star_id INTEGER, FOREIGN KEY (film_id) REFERENCES films(id), FOREIGN KEY (star_id) REFERENCES stars(id)) ''')
-    conn.commit()
-    conn.close()
+#more correct in many2many
+#    c.execute('''CREATE TABLE IF NOT EXISTS formats (id INTEGER PRIMARY KEY AUTOINCREMENT, format VARCHAR(7))''')
+#    conn.commit()
+#    c.execute('''CREATE TABLE IF NOT EXISTS films (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(30), yearrelease INTEGER)''')
+#    conn.commit()
+#    c.execute('''CREATE TABLE IF NOT EXISTS stars (id INTEGER PRIMARY KEY AUTOINCREMENT, firstname VARCHAR(30), secondname VARCHAR(30))''')
+#    conn.commit()
+##many-many
+#    c.execute('''CREATE TABLE IF NOT EXISTS film_star (film_id INTEGER, star_id INTEGER, FOREIGN KEY (film_id) REFERENCES films(id), FOREIGN KEY (star_id) REFERENCES stars(id)) ''')
+#    conn.commit()
+#    conn.close()
 #
 #insert 1 some data
 def inst_db():
