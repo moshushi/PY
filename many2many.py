@@ -3,6 +3,8 @@ import sqlite3
 
 global globalStars
 global globalLastRowIdS
+global globalLastRowIdF
+global globalD = {}
 
 def make_db():
     conn = sqlite3.connect('filmbase.db')
@@ -26,6 +28,7 @@ def insert_name():
     global globalLastRowIdS
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
+    #тут делаю двумя способами вызов
     c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [globalStars])
     globalLastRowIdS = c.execute('SELECT id FROM stars WHERE name = ?', (globalStars,))
     conn.commit()
@@ -35,11 +38,47 @@ def test_print_name_and_rowid():
     print globalStars
     print globalLastRowIdS
 
+#def make_row_dictionary():
+#    global globalD
+#    globalD = {'title' : 'Blazing Saddles', 'year' : 1974}
+    #print globalD
+#def out_row_dictionary():
+#    print globalD
+def add_row_dictionary_simple():
+    global globalD
+    n = raw_input("Enter title: ")
+    m = raw_input("Enter year release film: ")
+    globalD['title'] = n
+    globalD['yearrelease'] = m
+
+def ins_db_var1():
+    global globalD
+    global globalLastRowIdF
+
+    conn = sqlite3.connect('filmbase.db')
+    c = conn.cursor()
+    c.execute('INSERT INTO films (title, yearrelease) VALUES (?,?)', [globalD["title"], globalD["yearrelease"]])
+#    globalLastRowIdF = c.execute('SELECT id FROM films WHERE name = ?', (globalStars,))
+    globalLastRowIdF = c.lastrowid
+    conn.commit()
+    conn.close()
+
+def ins_film_star():
+    global globalLastRowIdS
+    global globalLastRowIdF
+
+    conn = sqlite3.connect('filmbase.db')
+    c = conn.cursor()
+    c.execute('INSERT OR IGNORE INTO film_star(film_id, star_id) VALUES(?,?)', globalLastRowIdF, globalLastRowIdS)
+
 def main():
     make_db()
     test_name_star()
     insert_name()
     test_print_name_and_rowid()
+    add_row_dictionary_simple()
+    ins_db_var1()
+    ins_film_star()
 
 if __name__ == "__main__":
     main()
