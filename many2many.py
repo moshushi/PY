@@ -4,7 +4,8 @@ import sqlite3
 global globalStars
 global globalLastRowIdS
 global globalLastRowIdF
-global globalD = {}
+global globalD
+globalD = {}
 
 def make_db():
     conn = sqlite3.connect('filmbase.db')
