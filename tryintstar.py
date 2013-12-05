@@ -1,6 +1,10 @@
 # -*- coding: cp1251 -*-
 import sqlite3
 
+global globalStars
+global globalLastRowIdS
+global globalLastRowIdF
+
 def insert_name():
     global globalStars
     global globalLastRowIdS
@@ -8,8 +12,6 @@ def insert_name():
     c = conn.cursor()
     #тут делаю двумя способами вызов
     c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [globalStars])
-    #why don't work?
-    #globalLastRowIdS = c.execute('SELECT id FROM stars WHERE name = ?', (globalStars,))
     c.execute('SELECT id FROM stars WHERE name = ?', (globalStars,))
     globalLastRowIdS = c.fetchone()
     conn.commit()
@@ -31,7 +33,7 @@ def CheckStarInDB():
     n = 'Mell'
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
-    c.execute ('select count(*) from stars where name = ?', (n,))
+    c.execute ('SELECT COUNT(*) FROM stars WHERE name = ?', (n,))
     #c.execute ('select count(*) from stars')
     row = c.fetchone()
     print row[0]
