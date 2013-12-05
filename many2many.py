@@ -40,7 +40,9 @@ def insert_name():
 
 def test_print_name_and_rowid():
     print globalStars
-    print globalLastRowIdS
+    #print globalLastRowIdS
+    print globalLastRowIdS[0]
+
 
 #def make_row_dictionary():
 #    global globalD
@@ -78,7 +80,15 @@ def ins_film_star():
 
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
-    c.execute('INSERT OR IGNORE INTO film_star(film_id, star_id) VALUES(?,?)', (globalLastRowIdF, globalLastRowIdS,))
+    #c.execute('INSERT OR IGNORE INTO film_star(film_id, star_id) VALUES(?,?)', (globalLastRowIdF, globalLastRowIdS,))
+    #c.execute('INSERT OR IGNORE INTO film_star(film_id, star_id) VALUES(?,?)', ('globalLastRowIdF', 'globalLastRowIdS',))
+
+    c.execute('INSERT OR IGNORE INTO film_star(film_id, star_id) VALUES(?,?)', (globalLastRowIdF[0], globalLastRowIdS[0],))
+    print globalLastRowIdF[0]
+    print globalLastRowIdS[0]
+
+    conn.commit()
+    conn.close()
 
 def main():
     make_db()
