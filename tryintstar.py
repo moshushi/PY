@@ -1,6 +1,20 @@
 # -*- coding: cp1251 -*-
 import sqlite3
 
+def insert_name():
+    global globalStars
+    global globalLastRowIdS
+    conn = sqlite3.connect('filmbase.db')
+    c = conn.cursor()
+    #тут делаю двумя способами вызов
+    c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [globalStars])
+    #why don't work?
+    #globalLastRowIdS = c.execute('SELECT id FROM stars WHERE name = ?', (globalStars,))
+    c.execute('SELECT id FROM stars WHERE name = ?', (globalStars,))
+    globalLastRowIdS = c.fetchone()
+    conn.commit()
+    conn.close()
+
 def instar():
     li=[]
     while True:
@@ -13,17 +27,17 @@ def instar():
     print ('Loop end')
 
 def CheckStarInDB():
-    #n = Mell
+    global globalStars
+    n = 'Mell'
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
-    #c.execute ('select count(*) from stars where name = n')
-    c.execute ('select count(*) from stars')
+    c.execute ('select count(*) from stars where name = ?', (n,))
+    #c.execute ('select count(*) from stars')
     row = c.fetchone()
-        #count = row[0]
-            #if not count:
-               #sql insert in table
-    print row
-        #print count
+    print row[0]
+    if row[0] != 1:
+        globalStars = n
+        insert_name()
 
     conn.commit()
     conn.close()
