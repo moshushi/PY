@@ -2,6 +2,8 @@
 import sqlite3
 
 global tr
+global globalLastRowIdF
+globalLastRowIdF = {}
 
 def createtable_formatmovie():
     conn = sqlite3.connect('filmbase.db')
@@ -12,17 +14,31 @@ def createtable_formatmovie():
     conn.commit()
     conn.close()
 
-#def choise_formatmovie():
-
 def informat():
+    global tr
     tr = raw_input("Choise VHS, DVD or Blu-Ray\n")
     while tr not in ["VHS", "DVD", "Blu-Ray"]:
         tr = raw_input("Choise VHS, DVD or Blu-Ray\n")
     print (tr)
 
+def test_lastrowidF():
+    global globalLastRowIdF
+    globalLastRowIdF[0] = 2
+
+def choise_formatmovie():
+    global tr
+    global globalLastRowIdF
+    conn = sqlite3.connect('filmbase.db')
+    c = conn.cursor()
+    c.execute('INSERT OR IGNORE INTO formatm(film_id, formats) VALUES(?,?)', (globalLastRowIdF[0], tr))
+    conn.commit()
+    conn.close()
+
 def main():
     informat()
     createtable_formatmovie()
+    test_lastrowidF()
+    choise_formatmovie()
 
 if __name__ == "__main__":
     main()
