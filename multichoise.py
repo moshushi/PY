@@ -9,9 +9,9 @@ def make_form_db():
     conn.close()
 
 def informat():
-    tr = raw_input("Choise VHS, DVD or Blu-Ray ")
+    tr = raw_input("Choise VHS, DVD or Blu-Ray\n")
     while tr not in ["VHS", "DVD", "Blu-Ray"]:
-        tr = raw_input("Choise VHS, DVD or Blu-Ray")
+        tr = raw_input("Choise VHS, DVD or Blu-Ray\n")
     print (tr)
 
 def main():
