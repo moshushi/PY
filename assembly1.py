@@ -63,18 +63,21 @@ def CheckStarInDB():
     for item in my_list:
         #print ('item',item)
         c.execute('SELECT id FROM stars WHERE name = ?', (item,))
+        #row = c.fetchone()
         row = c.fetchone()
+        #print n
         #print ('row before', row)
         if row==None:
             #print 'Test'
             c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', (item,))
+            conn.commit()
             c.execute('SELECT id FROM stars WHERE name = ?', (item,))
             row = c.fetchone()
-            conn.commit()
+            #n = row[0]
             #print ('row after', row)
-        #n=row[0]
-        #li2.append(n)
-        li2.append(row)
+        n = row[0]
+        li2.append(n)
+        #li2.append(row)
     return li2
     #return (li2,)
     #print ('li2',li2)
@@ -103,8 +106,8 @@ def test_print():
     #print instar()
     #print insqlname()
     #CheckStarInDB()
-    print test_sel_db()
     print CheckStarInDB()
+    print test_sel_db()
     #print insqlname()
 
 def main():
