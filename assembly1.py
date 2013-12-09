@@ -15,8 +15,19 @@ def make_db():
     conn.commit()
     conn.close()
 
+def informat():
+    tr = raw_input("Choise VHS, DVD or Blu-Ray\n")
+    while tr not in ["VHS", "DVD", "Blu-Ray"]:
+        tr = raw_input("Choise VHS, DVD or Blu-Ray\n")
+    return tr
+
+def test_print():
+    print informat()
+
 def main():
-    make_db()
+    #make_db()
+    #informat()
+    test_print()
 
 if __name__ == "__main__":
     main()
