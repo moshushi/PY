@@ -45,12 +45,12 @@ def insqlname():
         #c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', (item,))
         c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [item])
         conn.commit()
-        c.execute('SELECT id FROM stars WHERE name = ?', (item,))
-        x = c.fetchone()
-    return x
-    #    li2[]
-    #    li2.append(x)
-    #return li2
+   #     c.execute('SELECT id FROM stars WHERE name = ?', (item,))
+   #     x = c.fetchone()
+   # return x
+   # #    li2[]
+   # #    li2.append(x)
+   # #return li2
     conn.close()
 
 #for item in my_list:
@@ -82,8 +82,8 @@ def test_print():
     #print informat()
     #print infnamerelease()
     #print instar()
-    #print insqlname()
-    CheckStarInDB()
+    print insqlname()
+    #CheckStarInDB()
     print test_sel_db()
     #print insqlname()
 
