@@ -69,7 +69,7 @@ def insqlname():
     conn.close()
     return li2
 
-    #conn.close()
+
 
 def test_sel_db():
     conn = sqlite3.connect('filmbase.db')
@@ -82,11 +82,8 @@ def test_print():
     #print informat()
     #print infnamerelease()
     #print instar()
-    #print insqlname()
-    #CheckStarInDB()
     print insqlname()
     print test_sel_db()
-    #print insqlname()
 
 def main():
     #make_db()
