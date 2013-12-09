@@ -37,6 +37,23 @@ def instar():
         li.append(n)
     return li
 
+def insert_name():
+    #global globalStars
+    #global globalLastRowIdS
+    my_list=instar()
+    conn = sqlite3.connect('filmbase.db')
+    c = conn.cursor()
+    #тут делаю двумя способами вызов
+    #c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [globalStars])
+    #c.execute('SELECT id FROM stars WHERE name = ?', (globalStars,))
+    ###c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', my_list)
+    for item in my_list
+        c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [item])
+    #c.execute('SELECT id FROM stars WHERE name = ?', (globalStars,))
+    #globalLastRowIdS = c.fetchone()
+    conn.commit()
+    conn.close()
+
 #def insert_name():
 #    #global globalStars
 #    #global globalLastRowIdS
@@ -56,12 +73,15 @@ def instar():
 #    #return globalLastRowIdS
 #    return my_list
 
-def insqlname():
-    my_list=instar()
-    for item in my_list:
-        x = my_list[item]
-    #return my_list
-    return x
+#def insqlname():
+#    my_list=instar()
+#    for item in my_list:
+#        x = my_list[item]
+#    #return my_list
+#    return x
+
+#for item in my_list:
+#        insert_to_db(item)
 
 def test_sel_db():
     conn = sqlite3.connect('filmbase.db')
@@ -76,8 +96,8 @@ def test_print():
     #print infnamerelease()
     #print instar()
     #print test_sel_db()
-    #print insert_name()
-    print insqlname()
+    print insert_name()
+    #print insqlname()
 
 def main():
     #make_db()
