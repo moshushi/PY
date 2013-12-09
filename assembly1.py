@@ -61,17 +61,23 @@ def CheckStarInDB():
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
     for item in my_list:
-        print ('item',item)
+        #print ('item',item)
         c.execute('SELECT id FROM stars WHERE name = ?', (item,))
         row = c.fetchone()
-        print ('row', row)
+        #print ('row before', row)
         if row==None:
-            print 'Test'
+            #print 'Test'
+            c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', (item,))
+            c.execute('SELECT id FROM stars WHERE name = ?', (item,))
+            row = c.fetchone()
+            conn.commit()
+            #print ('row after', row)
         #n=row[0]
         #li2.append(n)
         li2.append(row)
-    #return li2
-    print ('li2',li2)
+    return li2
+    #return (li2,)
+    #print ('li2',li2)
 
   #####      print row
    #     return row
@@ -98,13 +104,13 @@ def test_print():
     #print insqlname()
     #CheckStarInDB()
     print test_sel_db()
-    #print CheckStarInDB()
+    print CheckStarInDB()
     #print insqlname()
 
 def main():
     #make_db()
-    CheckStarInDB()
-    #test_print()
+    #CheckStarInDB()
+    test_print()
 
 if __name__ == "__main__":
     main()
