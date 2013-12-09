@@ -37,7 +37,11 @@ def instar():
         li.append(n)
     return li
 
-def insqlname():
+#insert information in db
+#for item in my_list:
+#        insert_to_db(item)
+
+def insqlnameonly():
     my_list=instar()
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
@@ -45,53 +49,27 @@ def insqlname():
         #c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', (item,))
         c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [item])
         conn.commit()
-   #     c.execute('SELECT id FROM stars WHERE name = ?', (item,))
-   #     x = c.fetchone()
-   # return x
-   # #    li2[]
-   # #    li2.append(x)
-   # #return li2
     conn.close()
 
-#for item in my_list:
-#        insert_to_db(item)
-def CheckStarInDB():
+def insqlname():
     li2=[]
     my_list=instar()
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
     for item in my_list:
-        #print ('item',item)
         c.execute('SELECT id FROM stars WHERE name = ?', (item,))
-        #row = c.fetchone()
         row = c.fetchone()
-        #print n
-        #print ('row before', row)
         if row==None:
-            #print 'Test'
             c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', (item,))
             conn.commit()
             c.execute('SELECT id FROM stars WHERE name = ?', (item,))
             row = c.fetchone()
-            #n = row[0]
-            #print ('row after', row)
         n = row[0]
         li2.append(n)
-        #li2.append(row)
-    return li2
-    #return (li2,)
-    #print ('li2',li2)
-
-  #####      print row
-   #     return row
-#        print row[0]
-   #####     conn.commit()
-      # # if row[0] != 1:
-      # # #globalStars = n
-      # # insqlname(n)
-   # return x
-    #conn.commit()
     conn.close()
+    return li2
+
+    #conn.close()
 
 def test_sel_db():
     conn = sqlite3.connect('filmbase.db')
@@ -106,7 +84,7 @@ def test_print():
     #print instar()
     #print insqlname()
     #CheckStarInDB()
-    print CheckStarInDB()
+    print insqlname()
     print test_sel_db()
     #print insqlname()
 
