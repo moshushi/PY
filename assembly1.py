@@ -37,47 +37,39 @@ def instar():
         li.append(n)
     return li
 
-def insert_name():
-    #global globalLastRowIdS
+def insqlname():
     my_list=instar()
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
     for item in my_list:
-        c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', (item,))
-        #c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [item])
-    #c.execute('SELECT id FROM stars WHERE name = ?', (globalStars,))
-    #globalLastRowIdS = c.fetchone()
-    conn.commit()
+        #c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', (item,))
+        c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [item])
+        conn.commit()
+        c.execute('SELECT id FROM stars WHERE name = ?', (item,))
+        x = c.fetchone()
+    return x
+    #    li2[]
+    #    li2.append(x)
+    #return li2
     conn.close()
-
-#def insert_name():
-#    #global globalStars
-#    #global globalLastRowIdS
-#    #instar()
-#    conn = sqlite3.connect('filmbase.db')
-#    c = conn.cursor()
-#    #тут делаю двумя способами вызов
-#    my_list = instar()
-#    for item in my_list:
-#        #c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [globalStars])
-#        #c.execute('SELECT id FROM stars WHERE name = ?', (globalStars,))
-#        c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [my_list])
-#        c.execute('SELECT id FROM stars WHERE name = ?', (my_list,))
-#        globalLastRowIdS = c.fetchone()
-#    conn.commit()
-#    conn.close()
-#    #return globalLastRowIdS
-#    return my_list
-
-#def insqlname():
-#    my_list=instar()
-#    for item in my_list:
-#        x = my_list[item]
-#    #return my_list
-#    return x
 
 #for item in my_list:
 #        insert_to_db(item)
+def CheckStarInDB():
+    global globalStars
+    n = 'Mell'
+    conn = sqlite3.connect('filmbase.db')
+    c = conn.cursor()
+    c.execute ('SELECT COUNT(*) FROM stars WHERE name = ?', (n,))
+    #c.execute ('select count(*) from stars')
+    row = c.fetchone()
+    print row[0]
+    if row[0] != 1:
+        globalStars = n
+        insqlname()
+
+    conn.commit()
+    conn.close()
 
 def test_sel_db():
     conn = sqlite3.connect('filmbase.db')
@@ -90,7 +82,8 @@ def test_print():
     #print informat()
     #print infnamerelease()
     #print instar()
-    #print insert_name()
+    #print insqlname()
+    CheckStarInDB()
     print test_sel_db()
     #print insqlname()
 
