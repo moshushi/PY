@@ -75,7 +75,8 @@ def CheckStarInDB():
    # return x
  ###       conn.commit()
         row = c.fetchone()
-        print row
+  #####      print row
+        return row
 #        print row[0]
         conn.commit()
       # # if row[0] != 1:
@@ -97,12 +98,14 @@ def test_print():
     #print infnamerelease()
     #print instar()
     #print insqlname()
-    CheckStarInDB()
+    #CheckStarInDB()
     print test_sel_db()
+    print CheckStarInDB()
     #print insqlname()
 
 def main():
     #make_db()
+    #CheckStarInDB()
     test_print()
 
 if __name__ == "__main__":
