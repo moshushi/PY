@@ -38,18 +38,13 @@ def instar():
     return li
 
 def insert_name():
-    #global globalStars
     #global globalLastRowIdS
     my_list=instar()
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
-    #тут делаю двумя способами вызов
-    #c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [globalStars])
-    #c.execute('SELECT id FROM stars WHERE name = ?', (globalStars,))
-    ###c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', my_list)
     for item in my_list:
-        #c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', (item,))
-        c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [item])
+        c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', (item,))
+        #c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [item])
     #c.execute('SELECT id FROM stars WHERE name = ?', (globalStars,))
     #globalLastRowIdS = c.fetchone()
     conn.commit()
@@ -87,7 +82,6 @@ def insert_name():
 def test_sel_db():
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
-    #c.execute('SELECT * FROM stars')
     c.execute('SELECT * FROM stars')
     x = c.fetchmany()
     return x
