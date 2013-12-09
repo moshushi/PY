@@ -61,15 +61,17 @@ def CheckStarInDB():
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
     for item in my_list:
-        print item
+        print ('item',item)
         c.execute('SELECT id FROM stars WHERE name = ?', (item,))
         row = c.fetchone()
-        print row
+        print ('row', row)
+        if row==None:
+            print 'Test'
         #n=row[0]
         #li2.append(n)
         li2.append(row)
     #return li2
-    print li2
+    print ('li2',li2)
 
   #####      print row
    #     return row
