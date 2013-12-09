@@ -83,14 +83,14 @@ def test_sel_db():
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
     c.execute('SELECT * FROM stars')
-    x = c.fetchmany()
+    x = c.fetchall()
     return x
 
 def test_print():
     #print informat()
     #print infnamerelease()
     #print instar()
-    print insert_name()
+    #print insert_name()
     print test_sel_db()
     #print insqlname()
 
