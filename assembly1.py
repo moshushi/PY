@@ -56,19 +56,33 @@ def insqlname():
 #for item in my_list:
 #        insert_to_db(item)
 def CheckStarInDB():
-    global globalStars
-    n = 'Mell'
+    #global globalStars
+    #n = 'Mell'
+ ###   my_list=instar()
+ ###   conn = sqlite3.connect('filmbase.db')
+ ###   c = conn.cursor()
+ ###       for item in my_list:
+ ###       c.execute ('SELECT COUNT(*) FROM stars WHERE name = ?', (item,))
+ ###   #c.execute ('select count(*) from stars')
+    my_list=instar()
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
-    c.execute ('SELECT COUNT(*) FROM stars WHERE name = ?', (n,))
-    #c.execute ('select count(*) from stars')
-    row = c.fetchone()
-    print row[0]
-    if row[0] != 1:
-        globalStars = n
-        insqlname()
+    for item in my_list:
+        #c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', (item,))
+        #c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [item])
+        c.execute('SELECT id FROM stars WHERE name = ?', (item,))
+ ###       x = c.fetchone()
+   # return x
+ ###       conn.commit()
+        row = c.fetchone()
+        print row
+#        print row[0]
+        conn.commit()
+      # # if row[0] != 1:
+      # # #globalStars = n
+      # # insqlname(n)
 
-    conn.commit()
+    #conn.commit()
     conn.close()
 
 def test_sel_db():
@@ -82,8 +96,8 @@ def test_print():
     #print informat()
     #print infnamerelease()
     #print instar()
-    print insqlname()
-    #CheckStarInDB()
+    #print insqlname()
+    CheckStarInDB()
     print test_sel_db()
     #print insqlname()
 
