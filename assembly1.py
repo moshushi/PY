@@ -1,6 +1,7 @@
 # -*- coding: cp1251 -*-
 import sqlite3
 
+#Make filmbase.db
 def make_db():
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
@@ -15,18 +16,71 @@ def make_db():
     conn.commit()
     conn.close()
 
+#Hand input
+def infnamerelease():
+    n = raw_input("Enter title:\n")
+    m = raw_input("\nEnter year release film:\n")
+    return (n, m)
+
 def informat():
     tr = raw_input("Choise VHS, DVD or Blu-Ray\n")
     while tr not in ["VHS", "DVD", "Blu-Ray"]:
         tr = raw_input("Choise VHS, DVD or Blu-Ray\n")
     return tr
 
+def instar():
+    li=[]
+    while True:
+        n = raw_input('\nEnter n or enter Enter to end input Stars\n')
+        if n == "":
+            break
+        li.append(n)
+    return li
+
+#def insert_name():
+#    #global globalStars
+#    #global globalLastRowIdS
+#    #instar()
+#    conn = sqlite3.connect('filmbase.db')
+#    c = conn.cursor()
+#    #тут делаю двумя способами вызов
+#    my_list = instar()
+#    for item in my_list:
+#        #c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [globalStars])
+#        #c.execute('SELECT id FROM stars WHERE name = ?', (globalStars,))
+#        c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [my_list])
+#        c.execute('SELECT id FROM stars WHERE name = ?', (my_list,))
+#        globalLastRowIdS = c.fetchone()
+#    conn.commit()
+#    conn.close()
+#    #return globalLastRowIdS
+#    return my_list
+
+def insqlname():
+    my_list=instar()
+    for item in my_list:
+        x = my_list[item]
+    #return my_list
+    return x
+
+def test_sel_db():
+    conn = sqlite3.connect('filmbase.db')
+    c = conn.cursor()
+    #c.execute('SELECT * FROM stars')
+    c.execute('SELECT * FROM stars')
+    x = c.fetchmany()
+    return x
+
 def test_print():
-    print informat()
+    #print informat()
+    #print infnamerelease()
+    #print instar()
+    #print test_sel_db()
+    #print insert_name()
+    print insqlname()
 
 def main():
     #make_db()
-    #informat()
     test_print()
 
 if __name__ == "__main__":
