@@ -47,7 +47,8 @@ def insert_name():
     #c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [globalStars])
     #c.execute('SELECT id FROM stars WHERE name = ?', (globalStars,))
     ###c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', my_list)
-    for item in my_list
+    for item in my_list:
+        #c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', (item,))
         c.execute('INSERT OR IGNORE INTO stars(name) VALUES(?)', [item])
     #c.execute('SELECT id FROM stars WHERE name = ?', (globalStars,))
     #globalLastRowIdS = c.fetchone()
@@ -95,8 +96,8 @@ def test_print():
     #print informat()
     #print infnamerelease()
     #print instar()
-    #print test_sel_db()
     print insert_name()
+    print test_sel_db()
     #print insqlname()
 
 def main():
