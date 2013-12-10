@@ -83,6 +83,16 @@ def insqlfilm():
     #print n
     return n
 
+def ins_film_star():
+    a=insqlfilm()
+    b_list=insqlname()
+
+    conn = sqlite3.connect('filmbase.db')
+    c = conn.cursor()
+    for item in b_list:
+        c.execute('INSERT OR IGNORE INTO film_star(film_id, star_id) VALUES(?,?)', (a, item,))
+        conn.commit()
+    conn.close()
 
 def test_sel_db():
     conn = sqlite3.connect('filmbase.db')
@@ -91,16 +101,19 @@ def test_sel_db():
     x = c.fetchall()
     c.execute('SELECT * FROM films')
     y = c.fetchall()
+    c.execute('SELECT * FROM film_star')
+    z = c.fetchall()
     #return y,x
-    return y
+    return z
 
 def test_print():
     #print informat()
     #print infnamerelease()
     #print instar()
     #print insqlname()
-    print test_sel_db()
     #print insqlfilm()
+    print ins_film_star()
+    print test_sel_db()
 
 def main():
     #make_db()
