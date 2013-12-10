@@ -69,22 +69,19 @@ def insqlname():
     conn.close()
     return li2
 
-def ins_db_var1():
-#    global globalD
-#    global globalLastRowIdF
+def insqlfilm():
     fn=infnamerelease()
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
-    c.execute('INSERT INTO films (title, yearrelease) VALUES (?,?)', [globalD["title"], globalD["yearrelease"]])
-#    globalLastRowIdF = c.execute('SELECT id FROM films WHERE name = ?', (globalStars,))
-    #globalLastRowIdF = c.lastrowid
-    #c.execute('SELECT id FROM films WHERE (title, yearrelease) VALUES (?,?)', [globalD["title"], globalD["yearrelease"]])
-    #c.execute('SELECT id FROM films WHERE title=?, yearrelease =?', [globalD["title"], globalD["yearrelease"]])
-    c.execute('SELECT id FROM films WHERE title=? AND yearrelease =?', [globalD["title"], globalD["yearrelease"]])
-    globalLastRowIdF = c.fetchone()
-    print globalLastRowIdF
+    c.execute('INSERT INTO films (title, yearrelease) VALUES (?,?)', fn)
     conn.commit()
+    #c.execute('SELECT id FROM films WHERE title=? AND yearrelease =?', (fn[0], fn[1],))
+    c.execute('SELECT id FROM films WHERE title=? AND yearrelease =?', fn)
+    row = c.fetchone()
     conn.close()
+    n = row[0]
+    #print n
+    return n
 
 
 def test_sel_db():
@@ -92,14 +89,18 @@ def test_sel_db():
     c = conn.cursor()
     c.execute('SELECT * FROM stars')
     x = c.fetchall()
-    return x
+    c.execute('SELECT * FROM films')
+    y = c.fetchall()
+    #return y,x
+    return y
 
 def test_print():
     #print informat()
-    print infnamerelease()
+    #print infnamerelease()
     #print instar()
     #print insqlname()
-    #print test_sel_db()
+    print test_sel_db()
+    #print insqlfilm()
 
 def main():
     #make_db()
