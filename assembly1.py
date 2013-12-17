@@ -23,9 +23,9 @@ def infnamerelease():
     return (n, m)
 
 def informat():
-    tr = raw_input("Choise VHS, DVD or Blu-Ray\n")
+    tr = raw_input("\nChoise VHS, DVD or Blu-Ray\n")
     while tr not in ["VHS", "DVD", "Blu-Ray"]:
-        tr = raw_input("Choise VHS, DVD or Blu-Ray\n")
+        tr = raw_input("\nChoise VHS, DVD or Blu-Ray\n")
     return tr
 
 def instar():
@@ -71,6 +71,7 @@ def insqlname():
 
 def insqlfilm():
     fn=infnamerelease()
+    tr = informat()
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
     c.execute('INSERT INTO films (title, yearrelease) VALUES (?,?)', fn)
@@ -78,12 +79,14 @@ def insqlfilm():
     #c.execute('SELECT id FROM films WHERE title=? AND yearrelease =?', (fn[0], fn[1],))
     c.execute('SELECT id FROM films WHERE title=? AND yearrelease =?', fn)
     row = c.fetchone()
-    conn.close()
     n = row[0]
-    #print n
+    c.execute('INSERT OR IGNORE INTO formatm(film_id, formats) VALUES(?,?)', (n, tr))
+    conn.commit()
+    conn.close()
     return n
 
-def ins_film_star():
+#def ins_film_star():
+def add_film():
     a=insqlfilm()
     b_list=insqlname()
 
@@ -94,6 +97,17 @@ def ins_film_star():
         conn.commit()
     conn.close()
 
+def sel_film_id():
+    id = raw_input("\nEnter film id :\n")
+    conn = sqlite3.connect('filmbase.db')
+    c = conn.cursor()
+    c.execute('SELECT title, yearrelease FROM films WHERE id=?', id)
+    fm = c.fetchone()
+    c.execute('SELECT title, yearrelease FROM film_star WHERE id=?', id)
+    print fm
+
+
+#test section
 def test_sel_db():
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
@@ -103,17 +117,15 @@ def test_sel_db():
     y = c.fetchall()
     c.execute('SELECT * FROM film_star')
     z = c.fetchall()
+    conn.close()
     #return y,x
-    return z
+    #return z
 
 def test_print():
-    #print informat()
-    #print infnamerelease()
-    #print instar()
-    #print insqlname()
-    #print insqlfilm()
-    print ins_film_star()
-    print test_sel_db()
+    #### ins_film_star() - general input to database
+    #print add_film()
+    #print test_sel_db()
+    sel_film_id()
 
 def main():
     #make_db()
