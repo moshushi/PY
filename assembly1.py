@@ -120,6 +120,7 @@ def test_sel_db():
     conn.close()
     #return y,x
     #return z
+    return y
 
 def test_print():
     #### ins_film_star() - general input to database
