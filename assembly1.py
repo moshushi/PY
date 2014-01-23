@@ -101,9 +101,9 @@ def sel_film_id():
     id = raw_input("\nEnter film id :\n")
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
-    c.execute('SELECT title, yearrelease FROM films WHERE id=?', id)
+    c.execute('SELECT title, yearrelease FROM films WHERE id=?', (id,))
     fm = c.fetchone()
-    c.execute('SELECT title, yearrelease FROM film_star WHERE id=?', id)
+    #c.execute('SELECT title, yearrelease FROM film_star WHERE id=?', id)
     print fm
 
 
@@ -111,12 +111,12 @@ def sel_film_id():
 def test_sel_db():
     conn = sqlite3.connect('filmbase.db')
     c = conn.cursor()
-    c.execute('SELECT * FROM stars')
-    x = c.fetchall()
-    c.execute('SELECT * FROM films')
-    y = c.fetchall()
-    c.execute('SELECT * FROM film_star')
-    z = c.fetchall()
+    #c.execute('SELECT * FROM stars')
+    #x = c.fetchall()
+    #c.execute('SELECT * FROM films where film_id=?', t)
+    #y = c.fetchall()
+    #c.execute('SELECT * FROM film_star')
+    #z = c.fetchall()
     conn.close()
     #return y,x
     #return z
