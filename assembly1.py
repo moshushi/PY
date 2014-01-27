@@ -104,7 +104,27 @@ def sel_film_id():
     c.execute('SELECT title, yearrelease FROM films WHERE id=?', (id,))
     fm = c.fetchone()
     #c.execute('SELECT title, yearrelease FROM film_star WHERE id=?', id)
-    print fm
+    conn.close()
+    return fm
+
+def print_sel_film_id():
+    print sel_film_id()
+
+def del_film_id():
+    id = raw_input("\nEnter film id :\n")
+    conn = sqlite3.connect('filmbase.db')
+    c = conn.cursor()
+    c.execute('DELETE FROM films WHERE id=?', (id,))
+    conn.commit()
+    conn.close()
+
+def sel_film_all():
+    conn = sqlite3.connect('filmbase.db')
+    c = conn.cursor()
+    c.execute ('SELECT * FROM films')
+    fs = c.fetchmany()
+    print fs
+    conn.close()
 
 
 #test section
@@ -126,7 +146,9 @@ def test_print():
     #### ins_film_star() - general input to database
     #print add_film()
     #print test_sel_db()
-    sel_film_id()
+    #print sel_film_id()
+    sel_film_all()
+    #del_film_id()
 
 def main():
     #make_db()
