@@ -147,8 +147,9 @@ def test_print():
     #print add_film()
     #print test_sel_db()
     #print sel_film_id()
-    sel_film_all()
+    #sel_film_all()
     #del_film_id()
+    instar()
 
 def main():
     #make_db()
