@@ -1,10 +1,10 @@
 #read from random line
 
-import linecache
-import json
+#import linecache
+#import json
 
 li = []
-a1={}
+a1 = {}
 
 #do = linecache.getline('s.txt', 3)
 #print 'do===>', do
@@ -21,7 +21,8 @@ a1={}
 fileIN = open('s.txt', 'r')
 line = fileIN.readline()
 db = line
-print db
+#print db
+#print (/n)
 
 while line:
     line = fileIN.readline()
@@ -29,8 +30,11 @@ while line:
     print db
 
 kn = db.rstrip('\n')
+print kn
 li = kn.split(':')
-a1.setdefault(str(li[0]), li[1])
+print li
+#a1.setdefault(str(li[0]), li[1])
 
-print 'a1===>', a1
-print a1.get('Title')
+#
+#print 'a1===>', a1
+#print a1.get('Title')
