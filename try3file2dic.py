@@ -23,3 +23,7 @@ li = kn.split(':')
 #This string if don't use upper block
 #li = do.split(':')
 print 'li====>', li
+
+#Make dictonary form string
+dmm = dict(li)
+print 'd====>', d
