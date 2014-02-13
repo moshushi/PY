@@ -4,6 +4,7 @@
 import linecache
 
 li = []
+d = {}
 
 #For all lines
 #do = linecache.getlines('s.txt')
@@ -25,5 +26,5 @@ li = kn.split(':')
 print 'li====>', li
 
 #Make dictonary form string
-dmm = dict(li)
+d.setdefault(li[0],li[1])
 print 'd====>', d
