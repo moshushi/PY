@@ -9,6 +9,23 @@ d = {}
 #For all lines
 #do = linecache.getlines('s.txt')
 
+##Get len() 'file'
+#s = sum(1 for l in open('movies.txt', ‘r’)).
+#print s
+#for line in open ('s.txt', 'r').readline():
+#    print line
+
+#lines = open('s.txt','r').readlines()
+lines = open('s.txt','r').readlines()
+print lines
+n = 0
+for i in lines:
+        if(i == "\n" or i == '\r\n' ):
+                    n=n+1
+                    print 'len file string',n
+
+
+
 # make loop while
 # while string not blank
 #     read strint to string
