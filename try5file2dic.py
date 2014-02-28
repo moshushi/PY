@@ -1,6 +1,7 @@
 # coding: utf-8
 
 #read random string from file
+#read all strign from file
 import linecache
 
 li = []
