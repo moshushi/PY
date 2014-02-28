@@ -7,7 +7,13 @@ li = []
 d = {}
 
 #For all lines
-#do = linecache.getlines('s.txt')
+do = linecache.getlines('movies.txt')
+n = 0
+for j in do:
+    if j == '\n':
+            n=n+1
+print do
+print 'some n', n
 
 ##Get len() 'file'
 #s = sum(1 for l in open('movies.txt', ‘r’)).
