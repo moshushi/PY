@@ -2,3 +2,5 @@
 *.db
 #ignore swap files vim
 *.swp
+*.git
+*.ropeproject
