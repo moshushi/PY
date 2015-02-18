@@ -11,9 +11,11 @@ import sqlite3
 #    pass
 
 class Movie(object):
-    #def __init__(self, id, title):
-    def __init__(self):
-        pass
+    def __init__(self, id, title):
+    #def __init__(self):
+    #    pass
+        self.id = id
+        self.title = title
 
     def save(self):
         pass
@@ -25,12 +27,17 @@ class UI(object):
         pass
 
     def start(self):
-        pass
+   #     pass
+        print ("Welcome to CMDB - Command line Movie Database.")
+        print ("Type 'help' to see available commands.")
 
     def add_movie(self):
         pass
         #f.movie()
         #f.save()
+
+    def help(self):
+        pass
 
 def conn_or_create_db():
     conn = sqlite3.connect('filmbase.db')
@@ -43,4 +50,4 @@ def conn_or_create_db():
 conn_or_create_db()
 a = UI()
 a.start()
-
+#a.add_movie()
