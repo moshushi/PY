@@ -15,6 +15,10 @@ class Movie(object):
     def __init__(self):
         pass
 
+    def save(self):
+        pass
+#?add new, search?
+
 class UI(object):
     #def __init__(self, show, add):
     def __init__(self):
@@ -23,6 +27,10 @@ class UI(object):
     def start(self):
         pass
 
+    def add_movie(self):
+        pass
+        #f.movie()
+        #f.save()
 
 def conn_or_create_db():
     conn = sqlite3.connect('filmbase.db')
