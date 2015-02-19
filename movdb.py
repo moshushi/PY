@@ -74,7 +74,22 @@ class UI(object):
         UI.user_input(self)
 
     def help(self):
-        print ("help")
+        print ("""
+Available commands:
+
+    help            - view this help
+    add             - add new movie
+    import          - import movies from text file
+    delete          - delete movie by id
+    display         - display movie by id
+    list by title   - list all movies, ordered by title
+    list by year    - list all movies, ordered by year
+    find by title   - list all movies, ordered by title
+    find by star    - list all movies, ordered by year
+    find by title   - find movies by title
+    find by star    - find movies by star
+    quit            - quit this program
+        """)
         UI.user_input(self)
 
     def quit(self):
