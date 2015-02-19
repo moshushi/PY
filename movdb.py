@@ -12,17 +12,15 @@ global conn
 #    pass
 
 class Movie(object):
-    #def __init__(self):
-    def __init__(self, title):
-   # def __init__(self, id, title):
-    #    self.id = id
+    def __init__(self, title, ryear):
         self.title = title
+        self.ryear = ryear
 
     #def save(self, title):
     def save(self):
         global conn
         c = conn.cursor()
-        c.execute('INSERT OR IGNORE INTO films(title) VALUES (?)', (self.title,))
+        c.execute('INSERT OR IGNORE INTO films(title, yearrelease) VALUES (?,?)', (self.title, self.ryear,))
         conn.commit()
 #    def add_new(self, title):
 
@@ -58,11 +56,13 @@ class UI(object):
 
     def add_movie(self):
         pass
-        f = Movie('Null')
-        f.title = raw_input("Enter movie title=>")
+        f = Movie('Null', 'Null')
+        f.title = raw_input("Enter movie title: ")
+        f.ryear = int(raw_input("Enter release year: "))
         #f.movie()
-        print f.title
+        #print f.title
         f.save()
+        UI.user_input(self)
 
     def help(self):
         print ("help")
