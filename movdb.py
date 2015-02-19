@@ -12,7 +12,8 @@ global conn
 #    pass
 
 class Movie(object):
-    def __init__(self, title, ryear):
+    def __init__(self, idf, title, ryear):
+        self.idf = idf
         self.title = title
         self.ryear = ryear
 
@@ -23,6 +24,13 @@ class Movie(object):
         c.execute('INSERT OR IGNORE INTO films(title, yearrelease) VALUES (?,?)', (self.title, self.ryear,))
         conn.commit()
 #    def add_new(self, title):
+
+    def last_add(self):
+        global conn
+        c = conn.cursor()
+        for row in c.execute('SELECT id FROM films WHERE title = ? and yearrelease = ?', (self.title, self.ryear)):
+            self.idf = row[0]
+            print "Movie saved to database, id = %s" % (self.idf)
 
 #?add new, search?
 
@@ -56,12 +64,13 @@ class UI(object):
 
     def add_movie(self):
         pass
-        f = Movie('Null', 'Null')
+        f = Movie('None', 'None', 'None')
         f.title = raw_input("Enter movie title: ")
         f.ryear = int(raw_input("Enter release year: "))
         #f.movie()
         #print f.title
         f.save()
+        f.last_add()
         UI.user_input(self)
 
     def help(self):
