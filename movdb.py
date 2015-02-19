@@ -44,6 +44,8 @@ class UI(object):
             UI.help(self)
         elif UI.ch == '':
             UI.user_input(self)
+        elif UI.ch == 'quit':
+            UI.quit(self)
         else:
             UI.start(self)
 
@@ -56,6 +58,11 @@ class UI(object):
 
     def help(self):
         print ("help")
+
+    def quit(self):
+        #conn.commit()
+        #conn.close()
+        pass
 
 def conn_or_create_db():
     conn = sqlite3.connect('filmbase.db')
