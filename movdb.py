@@ -35,6 +35,20 @@ class Movie(object):
         conn.commit()
         print "Movie with id = %s deleted from database" % (self.idf)
 
+    def display(self):
+        global conn
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        #for row in c.execute('SELECT id FROM films WHERE title = ? and yearrelease = ?', (self.title, self.ryear)):
+
+        cursor.execute('''SELECT title, yearrelease FROM films WHERE id=?''', (self.idf,))
+        for row in cursor:
+            self.title = row[0]
+            self.ryear = row[1]
+        #    print self.title
+        #    print self.ryear
+        #pass
+
 
 class UI(object):
     #def __init__(self, show, add):
@@ -63,6 +77,8 @@ class UI(object):
             UI.add_movie(self)
         elif UI.ch == 'delete':
             UI.del_movie(self)
+        elif UI.ch == 'display':
+            UI.display_movie(self)
         else:
             UI.start(self)
 
@@ -107,6 +123,15 @@ Available commands:
         f.delete()
         UI.user_input(self)
 
+    def display_movie(self):
+        f = Movie('None', 'None', 'None')
+        f.idf = raw_input("Enter display movie id: ")
+        f.display()
+        print "\n Film with id = %s \n Title: %s \n Year release: %s" % (f.idf, f.title, f.ryear)
+        #print "Films with id %s" % f.idf
+        UI.user_input(self)
+
+
 def conn_or_create_db():
 #    conn = sqlite3.connect('filmbase.db')
     global conn
@@ -116,7 +141,7 @@ def conn_or_create_db():
     c.execute('''CREATE TABLE IF NOT EXISTS films (id INTEGER PRIMARY KEY, title VARCHAR(30), yearrelease INTEGER)''')
     conn.commit()
 
-
+# Creates or opens a file called filmabase.db
 conn = sqlite3.connect('filmbase.db')
 conn_or_create_db()
 a = UI()
