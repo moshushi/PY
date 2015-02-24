@@ -1,5 +1,6 @@
 €}qUmovdb.pyq}q(UUI.startcrope.base.oi.memorydb
 ScopeInfo
-q)q}qUinstanceqUdefinedqUmovdb.pyUUIq	‡†…Uunknown…q
-s}q†bUUI.__init__h)q}qhhhh	‡†Unone…qh‡h
-s}q†bus.
+q)q}q(UinstanceqUdefinedqUmovdb.pyUUIq	‡†…Uunknown…q
+Unone…q…Uunknown…qu}q†bUUI.del_movieh)q}qUinstanceqUdefinedqUmovdb.pyUUIq‡†…Uunknown…qs}q†bU
+Movie.saveh)q}q(UinstanceqUdefinedqUmovdb.pyUMovieq‡†h†hhhUmovdb.pyqh‡†…hu}q†bUUI.__init__h)q}q(hhUmovdb.pyUUIq‡†…hhhhh	‡†Unone…qh‡h
+u}q †bUMovie.__init__h)q!}q"(hhUmovdb.pyh‡†UbuiltinUstr†q#h#‡hhhhh‡†h#h‡hhhUmovdb.pyh‡†h†hhhUmovdb.pyh‡†h#†h(hhUmovdb.pyh‡†h#h#h#thu}q$†bU	UI.choiceh)q%}q&(hhUmovdb.pyh‡†…hh…hu}q'†bUconn_or_create_dbh)q(}q))hs}q*†bUUI.add_movieh)q+}q,hhUmovdb.pyh‡†…hs}q-†bUUI.quith)q.}q/hhUmovdb.pyh‡†…hs}q0†bUMovie.last_addh)q1}q2hhUmovdb.pyh‡†…hs}q3†bUUI.user_inputh)q4}q5(hhUmovdb.pyh‡†…hh…hu}q6†bUUI.helph)q7}q8(hhUmovdb.pyh‡†…hh…hu}q9†bus.

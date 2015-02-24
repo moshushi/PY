@@ -7,9 +7,6 @@ global conn
 
 #class Movie(object):
 #    def __init__(self, id, title, ryear, format, stars)
-#
-#def funct():
-#    pass
 
 class Movie(object):
     def __init__(self, idf, title, ryear):
@@ -17,7 +14,6 @@ class Movie(object):
         self.title = title
         self.ryear = ryear
 
-    #def save(self, title):
     def save(self):
         global conn
         c = conn.cursor()
@@ -32,7 +28,13 @@ class Movie(object):
             self.idf = row[0]
             print "Movie saved to database, id = %s" % (self.idf)
 
-#?add new, search?
+    def delete(self):
+        global conn
+        d = conn.execute("DELETE FROM films WHERE id =?", (self.idf,))
+        #print (self.idf)
+        conn.commit()
+        print "Movie with id = %s deleted from database" % (self.idf)
+
 
 class UI(object):
     #def __init__(self, show, add):
@@ -59,6 +61,8 @@ class UI(object):
             UI.quit(self)
         elif UI.ch == 'add':
             UI.add_movie(self)
+        elif UI.ch == 'delete':
+            UI.del_movie(self)
         else:
             UI.start(self)
 
@@ -97,6 +101,12 @@ Available commands:
         #conn.close()
         pass
 
+    def del_movie(self):
+        f = Movie('None', 'None', 'None')
+        f.idf = raw_input("Enter delete movie id: ")
+        f.delete()
+        UI.user_input(self)
+
 def conn_or_create_db():
 #    conn = sqlite3.connect('filmbase.db')
     global conn
@@ -111,4 +121,3 @@ conn = sqlite3.connect('filmbase.db')
 conn_or_create_db()
 a = UI()
 a.start()
-#a.add_movie()
