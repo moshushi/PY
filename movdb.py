@@ -9,10 +9,11 @@ global conn
 #    def __init__(self, id, title, ryear, format, stars)
 
 class Movie(object):
-    def __init__(self, idf, title, ryear):
+    def __init__(self, idf, title, ryear, formatm):
         self.idf = idf
         self.title = title
         self.ryear = ryear
+        self.formatm = formatm
 
     def save(self):
         global conn
@@ -80,9 +81,11 @@ class UI(object):
 
     def add_movie(self):
         pass
-        f = Movie('None', 'None', 'None')
+        f = Movie('None', 'None', 'None', 'None')
+        #f = Movie()
         f.title = raw_input("Enter movie title: ")
         f.ryear = int(raw_input("Enter release year: "))
+        f.formatm = choice_format()
         f.save()
         f.last_add()
         UI.user_input(self)
@@ -127,6 +130,22 @@ Available commands:
             print "\n Film with id = %s \n Title: %s \n Year release: %s \n" % (f.idf, f.title, f.ryear)
         UI.user_input(self)
 
+def choice_format():
+    print ("""
+ 1> VHS
+ 2> DVD
+ 3> Blu-Ray
+           """)
+    fc = raw_input("Choose format: ")
+    if fc == '1':
+           fc = 'VHS'
+    elif fc == '2':
+           fc = 'DVD'
+    elif fc == '3':
+           fc = 'Blu-Ray'
+    else:
+        choice_format()
+    return fc
 
 def conn_or_create_db():
 #    conn = sqlite3.connect('filmbase.db')
