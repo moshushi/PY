@@ -23,13 +23,13 @@ class Movie(object):
     def last_add(self):
         global conn
         c = conn.cursor()
-        for row in c.execute('SELECT movie_id FROM movies WHERE title = ? and yearrelease = ?', (self.title, self.ryear)):
+        for row in c.execute('SELECT id FROM movies WHERE title = ? and yearrelease = ?', (self.title, self.ryear)):
             self.idf = row[0]
             print "Movie saved to database, id = %s" % (self.idf)
 
     def delete(self):
         global conn
-        d = conn.execute("DELETE FROM movies WHERE movie_id =?", (self.idf,))
+        d = conn.execute("DELETE FROM movies WHERE id =?", (self.idf,))
         #print (self.idf)
         conn.commit()
         print "Movie with id = %s deleted from database" % (self.idf)
@@ -38,7 +38,7 @@ class Movie(object):
         global conn
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        cursor.execute('''SELECT title, yearrelease FROM movies WHERE movie_id=?''', (self.idf,))
+        cursor.execute('''SELECT title, yearrelease FROM movies WHERE id=?''', (self.idf,))
         for row in cursor:
             self.title = row[0]
             self.ryear = row[1]
@@ -131,7 +131,7 @@ def conn_or_create_db():
 
     c = conn.cursor()
     c.execute('PRAGMA foreign_keys = ON')
-    c.execute('''CREATE TABLE IF NOT EXISTS movies (movie_id INTEGER PRIMARY KEY, title VARCHAR(30), yearrelease INTEGER)''')
+    c.execute('''CREATE TABLE IF NOT EXISTS movies (id INTEGER PRIMARY KEY, title VARCHAR(30), yearrelease INTEGER)''')
     conn.commit()
 
 # Creates or opens a file called filmabase.db
