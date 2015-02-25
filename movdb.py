@@ -17,20 +17,19 @@ class Movie(object):
     def save(self):
         global conn
         c = conn.cursor()
-        c.execute('INSERT OR IGNORE INTO films(title, yearrelease) VALUES (?,?)', (self.title, self.ryear,))
+        c.execute('INSERT OR IGNORE INTO movies(title, yearrelease) VALUES (?,?)', (self.title, self.ryear,))
         conn.commit()
-#    def add_new(self, title):
 
     def last_add(self):
         global conn
         c = conn.cursor()
-        for row in c.execute('SELECT id FROM films WHERE title = ? and yearrelease = ?', (self.title, self.ryear)):
+        for row in c.execute('SELECT movie_id FROM movies WHERE title = ? and yearrelease = ?', (self.title, self.ryear)):
             self.idf = row[0]
             print "Movie saved to database, id = %s" % (self.idf)
 
     def delete(self):
         global conn
-        d = conn.execute("DELETE FROM films WHERE id =?", (self.idf,))
+        d = conn.execute("DELETE FROM movies WHERE movie_id =?", (self.idf,))
         #print (self.idf)
         conn.commit()
         print "Movie with id = %s deleted from database" % (self.idf)
@@ -39,19 +38,16 @@ class Movie(object):
         global conn
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        #for row in c.execute('SELECT id FROM films WHERE title = ? and yearrelease = ?', (self.title, self.ryear)):
-
-        cursor.execute('''SELECT title, yearrelease FROM films WHERE id=?''', (self.idf,))
+        cursor.execute('''SELECT title, yearrelease FROM movies WHERE movie_id=?''', (self.idf,))
         for row in cursor:
             self.title = row[0]
             self.ryear = row[1]
         #    print self.title
         #    print self.ryear
-        #pass
 
 
 class UI(object):
-    #def __init__(self, show, add):
+
     def __init__(self):
         pass
 
@@ -87,8 +83,6 @@ class UI(object):
         f = Movie('None', 'None', 'None')
         f.title = raw_input("Enter movie title: ")
         f.ryear = int(raw_input("Enter release year: "))
-        #f.movie()
-        #print f.title
         f.save()
         f.last_add()
         UI.user_input(self)
@@ -128,7 +122,6 @@ Available commands:
         f.idf = raw_input("Enter display movie id: ")
         f.display()
         print "\n Film with id = %s \n Title: %s \n Year release: %s" % (f.idf, f.title, f.ryear)
-        #print "Films with id %s" % f.idf
         UI.user_input(self)
 
 
@@ -138,7 +131,7 @@ def conn_or_create_db():
 
     c = conn.cursor()
     c.execute('PRAGMA foreign_keys = ON')
-    c.execute('''CREATE TABLE IF NOT EXISTS films (id INTEGER PRIMARY KEY, title VARCHAR(30), yearrelease INTEGER)''')
+    c.execute('''CREATE TABLE IF NOT EXISTS movies (movie_id INTEGER PRIMARY KEY, title VARCHAR(30), yearrelease INTEGER)''')
     conn.commit()
 
 # Creates or opens a file called filmabase.db
