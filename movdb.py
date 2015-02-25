@@ -121,7 +121,10 @@ Available commands:
         f = Movie('None', 'None', 'None')
         f.idf = raw_input("Enter display movie id: ")
         f.display()
-        print "\n Film with id = %s \n Title: %s \n Year release: %s" % (f.idf, f.title, f.ryear)
+        if f.title == 'None':
+            print "Film with id = %s not exit in database" % (f.idf)
+        else:
+            print "\n Film with id = %s \n Title: %s \n Year release: %s \n" % (f.idf, f.title, f.ryear)
         UI.user_input(self)
 
 
@@ -131,7 +134,8 @@ def conn_or_create_db():
 
     c = conn.cursor()
     c.execute('PRAGMA foreign_keys = ON')
-    c.execute('''CREATE TABLE IF NOT EXISTS movies (id INTEGER PRIMARY KEY, title VARCHAR(30), yearrelease INTEGER)''')
+    #c.execute('''CREATE TABLE IF NOT EXISTS movies (id INTEGER PRIMARY KEY, title VARCHAR(30), yearrelease INTEGER)''')
+    c.execute('''CREATE TABLE IF NOT EXISTS movies (id INTEGER, title VARCHAR(30), yearrelease INTEGER, PRIMARY KEY (id))''')
     conn.commit()
 
 # Creates or opens a file called filmabase.db
