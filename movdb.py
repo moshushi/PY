@@ -122,7 +122,7 @@ Available commands:
         f.idf = raw_input("Enter display movie id: ")
         f.display()
         if f.title == 'None':
-            print "Film with id = %s not exit in database" % (f.idf)
+            print "Film with id = %s not exists in database" % (f.idf)
         else:
             print "\n Film with id = %s \n Title: %s \n Year release: %s \n" % (f.idf, f.title, f.ryear)
         UI.user_input(self)
