@@ -20,12 +20,18 @@ class Movie(object):
         c = conn.cursor()
         c.execute('INSERT OR IGNORE INTO movies(title, yearrelease) VALUES (?,?)', (self.title, self.ryear,))
         conn.commit()
-
-    def last_add(self):
-        global conn
-        c = conn.cursor()
+        #last_add(self)
         for row in c.execute('SELECT id FROM movies WHERE title = ? and yearrelease = ?', (self.title, self.ryear)):
             self.idf = row[0]
+        c.execute('INSERT OR IGNORE INTO formatm(movie_id, formats) VALUES(?,?)', (self.idf, self.formatm))
+        conn.commit()
+        #print "Movie saved to database, id = %s" % (self.idf)
+
+    def last_add(self):
+        #global conn
+        #c = conn.cursor()
+        #for row in c.execute('SELECT id FROM movies WHERE title = ? and yearrelease = ?', (self.title, self.ryear)):
+        #    self.idf = row[0]
             print "Movie saved to database, id = %s" % (self.idf)
 
     def delete(self):
@@ -160,7 +166,7 @@ def conn_or_create_db():
     conn.commit()
     c.execute('''CREATE TABLE IF NOT EXISTS movie_star (movie_id INTEGER, star_id INTEGER, FOREIGN KEY(movie_id) REFERENCES movie(id), FOREIGN KEY(star_id) REFERENCES stars(id), PRIMARY KEY (movie_id, star_id)) ''')
     conn.commit()
-    c.execute('''CREATE TABLE IF NOT EXISTS formatm (movie_id INTEGER, formats VARCHAR(8) NOT NULL CHECK (formats IN ('VHS', 'DVD', 'Blu-Ray')), FOREIGN KEY(movie_id) REFERENCES films(id), PRIMARY KEY(movie_id, formats))''')
+    c.execute('''CREATE TABLE IF NOT EXISTS formatm (movie_id INTEGER, formats VARCHAR(8) NOT NULL CHECK (formats IN ('VHS', 'DVD', 'Blu-Ray')), FOREIGN KEY(movie_id) REFERENCES movies(id), PRIMARY KEY(movie_id, formats))''')
 # Creates or opens a file called filmabase.db
 conn = sqlite3.connect('filmbase.db')
 conn_or_create_db()
