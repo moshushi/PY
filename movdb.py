@@ -72,11 +72,15 @@ class Movie(object):
         #    print self.title
         #    print self.ryear
 
-    def listtitle():
+    def listtitle(self):
 
-        cursor.executemany('SELECT title FROM movies')
-        all_rows = cursor.fetchall()
-        print all_rows
+        global conn
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute('SELECT title FROM movies ORDER by title')
+       # all_rows = cursor.fetchall()
+       # print all_rows
+        print cursor.fetchall()
 
 
 class UI(object):
@@ -166,11 +170,12 @@ Available commands:
             print "Film with id = %s not exists in database" % (f.idf)
         else:
             print "\n Film with id = %s \n Title: %s \n Year release: %s \n" % (f.idf, f.title, f.ryear)
-        UI.user_input(self)
+        I.user_input(self)
 
     def list_by_title(self):
         f = Movie('None', 'None', 'None', 'None', 'None')
         f.listtitle()
+        UI.user_input(self)
 
 
 def stars_input():
