@@ -7,6 +7,7 @@ global conn
 global myl
 
 myl = []
+#zen = ('None', 'None', 'None', 'None', 'None')
 
 #class Movie(object):
 #    def __init__(self, id, title, ryear, format, stars)
@@ -71,6 +72,12 @@ class Movie(object):
         #    print self.title
         #    print self.ryear
 
+    def listtitle():
+
+        cursor.executemany('SELECT title FROM movies')
+        all_rows = cursor.fetchall()
+        print all_rows
+
 
 class UI(object):
 
@@ -101,12 +108,15 @@ class UI(object):
             UI.del_movie(self)
         elif UI.ch == 'display':
             UI.display_movie(self)
+        elif UI.ch == 'list by title':
+            UI.list_by_title(self)
         else:
             UI.start(self)
 
     def add_movie(self):
         pass
         f = Movie('None', 'None', 'None', 'None', 'None')
+        #f = Movie(str(zen))
         #f = Movie()
         f.title = raw_input("Enter movie title: ")
         f.ryear = int(raw_input("Enter release year: "))
@@ -157,6 +167,11 @@ Available commands:
         else:
             print "\n Film with id = %s \n Title: %s \n Year release: %s \n" % (f.idf, f.title, f.ryear)
         UI.user_input(self)
+
+    def list_by_title(self):
+        f = Movie('None', 'None', 'None', 'None', 'None')
+        f.listtitle()
+
 
 def stars_input():
     global myl
