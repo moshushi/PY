@@ -142,13 +142,14 @@ Available commands:
         pass
 
     def del_movie(self):
-        f = Movie('None', 'None', 'None')
+        f = Movie('None', 'None', 'None', 'None', 'None')
         f.idf = raw_input("Enter delete movie id: ")
         f.delete()
         UI.user_input(self)
 
     def display_movie(self):
-        f = Movie('None', 'None', 'None')
+        f = Movie('None', 'None', 'None', 'None', 'None')
+        #f = Movie('None', 'None', 'None')
         f.idf = raw_input("Enter display movie id: ")
         f.display()
         if f.title == 'None':
