@@ -4,12 +4,16 @@
 import sqlite3
 
 global conn
+global myl
+
+myl = []
 
 #class Movie(object):
 #    def __init__(self, id, title, ryear, format, stars)
 
 class Movie(object):
-    def __init__(self, idf, title, ryear, formatm):
+    def __init__(self, idf, title, ryear, formatm, stars):
+    #def __init__(self, idf, title, ryear, formatm ):
         self.idf = idf
         self.title = title
         self.ryear = ryear
@@ -24,6 +28,12 @@ class Movie(object):
         for row in c.execute('SELECT id FROM movies WHERE title = ? and yearrelease = ?', (self.title, self.ryear)):
             self.idf = row[0]
         c.execute('INSERT OR IGNORE INTO formatm(movie_id, formats) VALUES(?,?)', (self.idf, self.formatm))
+        conn.commit()
+### Insert stars from list to database
+        cnt = 0
+        while cnt != len(self.stars):
+            c.execute('INSERT OR IGNORE INTO stars(name) VALUES (?)', (self.stars[cnt],))
+            cnt += 1
         conn.commit()
         #print "Movie saved to database, id = %s" % (self.idf)
 
@@ -87,11 +97,13 @@ class UI(object):
 
     def add_movie(self):
         pass
-        f = Movie('None', 'None', 'None', 'None')
+        f = Movie('None', 'None', 'None', 'None', 'None')
         #f = Movie()
         f.title = raw_input("Enter movie title: ")
         f.ryear = int(raw_input("Enter release year: "))
         f.formatm = choice_format()
+        #li = []
+        f.stars = stars_input()
         f.save()
         f.last_add()
         UI.user_input(self)
@@ -117,7 +129,7 @@ Available commands:
 
     def quit(self):
         #conn.commit()
-        #conn.close()
+        conn.close()
         pass
 
     def del_movie(self):
@@ -135,6 +147,16 @@ Available commands:
         else:
             print "\n Film with id = %s \n Title: %s \n Year release: %s \n" % (f.idf, f.title, f.ryear)
         UI.user_input(self)
+
+def stars_input():
+    global myl
+
+    sint = None
+    while sint != '':
+        sint = raw_input("Star (or empty string to end):")
+        myl.append(sint)
+    myl.pop(-1)
+    return myl
 
 def choice_format():
     print ("""
@@ -168,6 +190,7 @@ def conn_or_create_db():
     conn.commit()
     c.execute('''CREATE TABLE IF NOT EXISTS formatm (movie_id INTEGER, formats VARCHAR(8) NOT NULL CHECK (formats IN ('VHS', 'DVD', 'Blu-Ray')), FOREIGN KEY(movie_id) REFERENCES movies(id), PRIMARY KEY(movie_id, formats))''')
 # Creates or opens a file called filmabase.db
+
 conn = sqlite3.connect('filmbase.db')
 conn_or_create_db()
 a = UI()
