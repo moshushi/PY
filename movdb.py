@@ -81,6 +81,7 @@ class Movie(object):
        # all_rows = cursor.fetchall()
        # print all_rows
         print cursor.fetchall()
+        #test
 
 
 class UI(object):
