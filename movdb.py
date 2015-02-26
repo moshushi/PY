@@ -33,6 +33,15 @@ class Movie(object):
         cnt = 0
         while cnt != len(self.stars):
             c.execute('INSERT OR IGNORE INTO stars(name) VALUES (?)', (self.stars[cnt],))
+            conn.commit()
+# Need add to another table too!!
+            c.execute('SELECT id FROM stars WHERE name = ?', (self.stars[cnt],))
+            for row in c:
+                print row[0]
+                c.execute ('INSERT OR IGNORE INTO movie_star(movie_id, star_id) VALUES(?,?)', (self.idf, row[0]))
+                conn.commit()
+
+#increment
             cnt += 1
         conn.commit()
         #print "Movie saved to database, id = %s" % (self.idf)
@@ -186,7 +195,7 @@ def conn_or_create_db():
     conn.commit()
     c.execute('''CREATE TABLE IF NOT EXISTS stars (id INTEGER, name VARCHAR(60) UNIQUE, PRIMARY KEY(id))''')
     conn.commit()
-    c.execute('''CREATE TABLE IF NOT EXISTS movie_star (movie_id INTEGER, star_id INTEGER, FOREIGN KEY(movie_id) REFERENCES movie(id), FOREIGN KEY(star_id) REFERENCES stars(id), PRIMARY KEY (movie_id, star_id)) ''')
+    c.execute('''CREATE TABLE IF NOT EXISTS movie_star (movie_id INTEGER, star_id INTEGER, FOREIGN KEY(movie_id) REFERENCES movies(id), FOREIGN KEY(star_id) REFERENCES stars(id), PRIMARY KEY (movie_id, star_id)) ''')
     conn.commit()
     c.execute('''CREATE TABLE IF NOT EXISTS formatm (movie_id INTEGER, formats VARCHAR(8) NOT NULL CHECK (formats IN ('VHS', 'DVD', 'Blu-Ray')), FOREIGN KEY(movie_id) REFERENCES movies(id), PRIMARY KEY(movie_id, formats))''')
 # Creates or opens a file called filmabase.db
