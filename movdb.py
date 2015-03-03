@@ -172,7 +172,7 @@ Available commands:
             print "Film with id = %s not exists in database" % (f.idf)
         else:
             print "\n Film with id = %s \n Title: %s \n Year release: %s \n" % (f.idf, f.title, f.ryear)
-        I.user_input(self)
+        UI.user_input(self)
 
     def list_by_title(self):
         f = Movie('None', 'None', 'None', 'None', 'None')
