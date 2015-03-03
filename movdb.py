@@ -7,18 +7,15 @@ global conn
 global myl
 
 myl = []
-#zen = ('None', 'None', 'None', 'None', 'None')
 
-#class Movie(object):
-#    def __init__(self, id, title, ryear, format, stars)
 
 class Movie(object):
     def __init__(self, idf, title, ryear, formatm, stars):
-    #def __init__(self, idf, title, ryear, formatm ):
         self.idf = idf
         self.title = title
         self.ryear = ryear
         self.formatm = formatm
+        self.stars = stars
 
     def save(self):
         global conn
@@ -31,6 +28,7 @@ class Movie(object):
         c.execute('INSERT OR IGNORE INTO formatm(movie_id, formats) VALUES(?,?)', (self.idf, self.formatm))
         conn.commit()
 ### Insert stars from list to database
+###### Will trying make it with pop.cupple, without iteration counter
         cnt = 0
         while cnt != len(self.stars):
             c.execute('INSERT OR IGNORE INTO stars(name) VALUES (?)', (self.stars[cnt],))
@@ -38,7 +36,7 @@ class Movie(object):
 # Need add to another table too!!
             c.execute('SELECT id FROM stars WHERE name = ?', (self.stars[cnt],))
             for row in c:
-                print row[0]
+    #            print row[0]
                 c.execute ('INSERT OR IGNORE INTO movie_star(movie_id, star_id) VALUES(?,?)', (self.idf, row[0]))
                 conn.commit()
 
@@ -46,13 +44,6 @@ class Movie(object):
             cnt += 1
         conn.commit()
         #print "Movie saved to database, id = %s" % (self.idf)
-
-    def last_add(self):
-        #global conn
-        #c = conn.cursor()
-        #for row in c.execute('SELECT id FROM movies WHERE title = ? and yearrelease = ?', (self.title, self.ryear)):
-        #    self.idf = row[0]
-            print "Movie saved to database, id = %s" % (self.idf)
 
     def delete(self):
         global conn
@@ -79,31 +70,8 @@ class Movie(object):
         conn.text_factory = mystr
         cursor = conn.cursor()
         cursor.execute('''SELECT stars.name FROM stars INNER JOIN movie_star ON movie_star.star_id = stars.id WHERE movie_star.movie_id=?''', (self.idf,))
-####!!!!!!!!#####
-       ## z = cursor.fetchall()
-       ## for i in z:
-       ##     print i[0]
-
         self.stars = cursor.fetchall()
 
-
-        #    myl.append(i)
-
-        #print myl
-        #print z
-##!!!!
-        ########return z
-
-       ## for row in cursor:
-       ##     myl.append(row)
-       ##     print row
-        #    self.stars.append(row)
-        #    print self.title
-        #    print self.ryear
-        ##self.stars = myl
-        print 'here'
-        ##print z
-        #print self.stars
 
     def listtitle(self):
 
@@ -112,16 +80,25 @@ class Movie(object):
         conn.text_factory = mystr
         cursor = conn.cursor()
         cursor.execute('SELECT title, id FROM movies ORDER by title')
-       # all_rows = cursor.fetchall()
-       # print all_rows
-        z = cursor.fetchall()
-        ##z = cursor.fetchmany()
-        #print z
-        return z
-        #print cursor.fetchone()
-        #test
-	#test2
+        all_rows = cursor.fetchall()
+        return all_rows
 
+    def listyear(self):
+
+        global conn
+        conn.text_factory = mystr
+        cursor = conn.cursor()
+        cursor.execute('SELECT title, yearrelease, id FROM movies ORDER by yearrelease')
+        all_rows = cursor.fetchall()
+        return all_rows
+
+    def findtitle(self):
+        global conn
+        conn.text_factory = mystr
+        cursor = conn.cursor()
+        cursor.execute('SELECT title, yearrelease, id FROM movies WHERE title LIKE ? ORDER by title', ('%{}%'.format(self.title),))
+        all_rows = cursor.fetchall()
+        return all_rows
 
 class UI(object):
 
@@ -154,6 +131,10 @@ class UI(object):
             UI.display_movie(self)
         elif UI.ch == 'list by title':
             UI.list_by_title(self)
+        elif UI.ch == 'list by year':
+            UI.list_by_year(self)
+        elif UI.ch == 'find by title':
+            UI.find_by_title(self)
         else:
             UI.start(self)
 
@@ -168,7 +149,8 @@ class UI(object):
         #li = []
         f.stars = stars_input()
         f.save()
-        f.last_add()
+        #f.last_add()
+        print "Movie saved to database, id = %s" % (f.idf)
         UI.user_input(self)
 
     def help(self):
@@ -182,8 +164,6 @@ Available commands:
     display         - display movie by id
     list by title   - list all movies, ordered by title
     list by year    - list all movies, ordered by year
-    find by title   - list all movies, ordered by title
-    find by star    - list all movies, ordered by year
     find by title   - find movies by title
     find by star    - find movies by star
     quit            - quit this program
@@ -222,20 +202,33 @@ Available commands:
     def list_by_title(self):
         f = Movie('None', 'None', 'None', 'None', 'None')
         ows = f.listtitle()
-        #print ows
         print 'List movies ordered by title with their id:'
         for i in ows:
             print i[0], '  id:', i[1]
-###        print ows[0]
-###        x = ows[0]
-###        print x[0]
-###        print ows[1]
         #list2print(ows)
         UI.user_input(self)
 
-#def list2print(input):
-#    for i in input:
-#        print i[0], i[1]
+    def list_by_year(self):
+        f = Movie('None', 'None', 'None', 'None', 'None')
+        ows = f.listyear()
+        print 'List movies ordered by year with their id:'
+#        for i in ows:
+#            print i[0], ' Year release: ', i[1],'  id:', i[2]
+        list2print(ows)
+        UI.user_input(self)
+
+    def find_by_title(self):
+        f = Movie('None', 'None', 'None', 'None', 'None')
+        f.title = raw_input("Enter movie title: ")
+        ows = f.findtitle()
+        list2print(ows)
+        UI.user_input(self)
+
+
+
+def list2print(input):
+    for i in input:
+        print i[0], ' Year release: ', i[1],'  id:', i[2]
 
 
 def mystr(input):
@@ -276,6 +269,7 @@ def conn_or_create_db():
     c = conn.cursor()
     c.execute('PRAGMA foreign_keys = ON')
     #c.execute('''CREATE TABLE IF NOT EXISTS movies (id INTEGER PRIMARY KEY, title VARCHAR(30), yearrelease INTEGER)''')
+##### Will change to executescript
     c.execute('''CREATE TABLE IF NOT EXISTS movies (id INTEGER, title VARCHAR(30), yearrelease INTEGER, PRIMARY KEY (id))''')
     conn.commit()
     c.execute('''CREATE TABLE IF NOT EXISTS stars (id INTEGER, name VARCHAR(60) UNIQUE, PRIMARY KEY(id))''')
