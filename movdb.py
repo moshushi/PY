@@ -63,14 +63,32 @@ class Movie(object):
 
     def display(self):
         global conn
+       ## global myl
+
+        ##myl = []
+
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
         cursor.execute('''SELECT title, yearrelease FROM movies WHERE id=?''', (self.idf,))
         for row in cursor:
             self.title = row[0]
             self.ryear = row[1]
+        cursor.execute('''SELECT formats FROM formatm WHERE movie_id=?''', (self.idf,))
+        for row in cursor:
+            self.formatm = row[0]
+     ##   cursor.execute('''SELECT stars.name FROM stars JOIN movie_star ON movie_star.star_id = stars.id WHERE id=?''', (self.idf,))
+     ##   z = cursor.fetchall()
+
+       ## for row in cursor:
+       ##     myl.append(row)
+       ##     print row
+        #    self.stars.append(row)
         #    print self.title
         #    print self.ryear
+        ##self.stars = myl
+        print 'here'
+        ##print z
+        #print self.stars
 
     def listtitle(self):
 
@@ -176,7 +194,11 @@ Available commands:
         if f.title == 'None':
             print "Film with id = %s not exists in database" % (f.idf)
         else:
-            print "\n Film with id = %s \n Title: %s \n Year release: %s \n" % (f.idf, f.title, f.ryear)
+            print "\n Film with id = %s \n Title: %s \n Year release: %s\n" % (f.idf, f.title, f.ryear)
+            print "with stars:"
+            print "format: %s" % (f.formatm)
+       ###     for i in f.stars:
+       ###         print 11*''+i
         UI.user_input(self)
 
     def list_by_title(self):
