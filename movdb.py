@@ -75,7 +75,8 @@ class Movie(object):
     def listtitle(self):
 
         global conn
-        conn.row_factory = sqlite3.Row
+        #conn.row_factory = sqlite3.Row
+        conn.text_factory = mystr
         cursor = conn.cursor()
         cursor.execute('SELECT title FROM movies ORDER by title')
        # all_rows = cursor.fetchall()
@@ -178,6 +179,9 @@ Available commands:
         f = Movie('None', 'None', 'None', 'None', 'None')
         f.listtitle()
         UI.user_input(self)
+
+def mystr(input):
+    return unicode(input,'u8').encode('cp866')
 
 
 def stars_input():
