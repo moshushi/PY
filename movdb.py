@@ -81,7 +81,11 @@ class Movie(object):
         cursor.execute('SELECT title FROM movies ORDER by title')
        # all_rows = cursor.fetchall()
        # print all_rows
-        print cursor.fetchall()
+        z = cursor.fetchall()
+        ##z = cursor.fetchmany()
+        #print z
+        return z
+        #print cursor.fetchone()
         #test
 	#test2
 
@@ -177,7 +181,12 @@ Available commands:
 
     def list_by_title(self):
         f = Movie('None', 'None', 'None', 'None', 'None')
-        f.listtitle()
+        ows = f.listtitle()
+        print ows
+        print ows[0]
+        x = ows[0]
+        print x[0]
+        print ows[1]
         UI.user_input(self)
 
 def mystr(input):
