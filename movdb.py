@@ -78,7 +78,7 @@ class Movie(object):
         #conn.row_factory = sqlite3.Row
         conn.text_factory = mystr
         cursor = conn.cursor()
-        cursor.execute('SELECT title FROM movies ORDER by title')
+        cursor.execute('SELECT title, id FROM movies ORDER by title')
        # all_rows = cursor.fetchall()
        # print all_rows
         z = cursor.fetchall()
@@ -182,12 +182,21 @@ Available commands:
     def list_by_title(self):
         f = Movie('None', 'None', 'None', 'None', 'None')
         ows = f.listtitle()
-        print ows
-        print ows[0]
-        x = ows[0]
-        print x[0]
-        print ows[1]
+        #print ows
+        print 'List movies ordered by title with their id:'
+        for i in ows:
+            print i[0], '  id:', i[1]
+###        print ows[0]
+###        x = ows[0]
+###        print x[0]
+###        print ows[1]
+        #list2print(ows)
         UI.user_input(self)
+
+#def list2print(input):
+#    for i in input:
+#        print i[0], i[1]
+
 
 def mystr(input):
     return unicode(input,'u8').encode('cp866')
