@@ -63,9 +63,9 @@ class Movie(object):
 
     def display(self):
         global conn
-       ## global myl
+        global myl
 
-        ##myl = []
+        myl = []
 
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
@@ -76,8 +76,23 @@ class Movie(object):
         cursor.execute('''SELECT formats FROM formatm WHERE movie_id=?''', (self.idf,))
         for row in cursor:
             self.formatm = row[0]
-     ##   cursor.execute('''SELECT stars.name FROM stars JOIN movie_star ON movie_star.star_id = stars.id WHERE id=?''', (self.idf,))
-     ##   z = cursor.fetchall()
+        conn.text_factory = mystr
+        cursor = conn.cursor()
+        cursor.execute('''SELECT stars.name FROM stars INNER JOIN movie_star ON movie_star.star_id = stars.id WHERE movie_star.movie_id=?''', (self.idf,))
+####!!!!!!!!#####
+       ## z = cursor.fetchall()
+       ## for i in z:
+       ##     print i[0]
+
+        self.stars = cursor.fetchall()
+
+
+        #    myl.append(i)
+
+        #print myl
+        #print z
+##!!!!
+        ########return z
 
        ## for row in cursor:
        ##     myl.append(row)
@@ -195,8 +210,11 @@ Available commands:
             print "Film with id = %s not exists in database" % (f.idf)
         else:
             print "\n Film with id = %s \n Title: %s \n Year release: %s\n" % (f.idf, f.title, f.ryear)
-            print "with stars:"
-            print "format: %s" % (f.formatm)
+            print " with stars:"
+
+            for i in f.stars:
+                print i[0]
+            print "\nformat: %s" % (f.formatm)
        ###     for i in f.stars:
        ###         print 11*''+i
         UI.user_input(self)
