@@ -54,9 +54,9 @@ class Movie(object):
 
     def display(self):
         global conn
-        global myl
-
-        myl = []
+##        global myl
+##
+##        myl = []
 
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
@@ -100,6 +100,18 @@ class Movie(object):
         all_rows = cursor.fetchall()
         return all_rows
 
+    def findstar(self):
+        global conn
+        #conn.row_factory = sqlite3.Row
+        conn.text_factory = mystr
+        cursor = conn.cursor()
+        #cursor.execute('''SELECT movie_id FROM movie_star INNER JOIN stars ON movie_star.star_id = stars.id WHERE stars.name = ?''', (self.stars,))
+        cursor.execute('''SELECT movie_id FROM movie_star INNER JOIN stars ON movie_star.star_id = stars.id WHERE stars.name LIKE ?''', ('%{}%'.format(self.stars),))
+        all_rows = cursor.fetchall()
+        print all_rows
+
+
+
 class UI(object):
 
     def __init__(self):
@@ -135,6 +147,8 @@ class UI(object):
             UI.list_by_year(self)
         elif UI.ch == 'find by title':
             UI.find_by_title(self)
+        elif UI.ch == 'find by star':
+            UI.find_by_star(self)
         else:
             UI.start(self)
 
@@ -224,6 +238,13 @@ Available commands:
         list2print(ows)
         UI.user_input(self)
 
+    def find_by_star(self):
+        f = Movie('None', 'None', 'None', 'None', 'None')
+        f.stars= raw_input("Enter movie star: ")
+       # ows = f.findstar()
+       # list2print(ows)
+       # UI.user_input(self)
+        f.findstar() 
 
 
 def list2print(input):
