@@ -154,6 +154,8 @@ class UI(object):
             UI.find_by_title(self)
         elif UI.ch == 'find by star':
             UI.find_by_star(self)
+        elif UI.ch == 'import':
+            UI.import(self)
         else:
             UI.start(self)
 
@@ -245,6 +247,15 @@ Available commands:
         ows = f.findstar()
         list2print(ows)
         UI.user_input(self)
+
+    def import(self):
+        myl_list = []
+        d = {}
+        filename = raw_input("Enter name file for import: ")
+        with open (filename, 'r') as f:
+            #for row in f:
+            content = f.read().splitlines()
+        print myl_list
 
 
 def list2print3(input):
