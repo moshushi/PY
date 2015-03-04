@@ -46,7 +46,11 @@ class Movie(object):
         #print "Movie saved to database, id = %s" % (self.idf)
 
     def delete(self):
+## made without deleted star
         global conn
+      ##  d = conn.execute("DELETE FROM movie_star WHERE movie_id =?", (self.idf,))
+      ##  d = conn.execute("DELETE FROM formatm WHERE movie_id =?", (self.idf,))
+      ##  d = conn.execute("DELETE FROM movies WHERE id =?", (self.idf,))
         d = conn.execute("DELETE FROM movies WHERE id =?", (self.idf,))
         #print (self.idf)
         conn.commit()
@@ -294,9 +298,9 @@ def conn_or_create_db():
     conn.commit()
     c.execute('''CREATE TABLE IF NOT EXISTS stars (id INTEGER, name VARCHAR(60) UNIQUE, PRIMARY KEY(id))''')
     conn.commit()
-    c.execute('''CREATE TABLE IF NOT EXISTS movie_star (movie_id INTEGER, star_id INTEGER, FOREIGN KEY(movie_id) REFERENCES movies(id), FOREIGN KEY(star_id) REFERENCES stars(id), PRIMARY KEY (movie_id, star_id)) ''')
+    c.execute('''CREATE TABLE IF NOT EXISTS movie_star (movie_id INTEGER, star_id INTEGER, FOREIGN KEY(movie_id) REFERENCES movies(id) on delete cascade, FOREIGN KEY(star_id) REFERENCES stars(id), PRIMARY KEY (movie_id, star_id)) ''')
     conn.commit()
-    c.execute('''CREATE TABLE IF NOT EXISTS formatm (movie_id INTEGER, formats VARCHAR(8) NOT NULL CHECK (formats IN ('VHS', 'DVD', 'Blu-Ray')), FOREIGN KEY(movie_id) REFERENCES movies(id), PRIMARY KEY(movie_id, formats))''')
+    c.execute('''CREATE TABLE IF NOT EXISTS formatm (movie_id INTEGER, formats VARCHAR(8) NOT NULL CHECK (formats IN ('VHS', 'DVD', 'Blu-Ray')), FOREIGN KEY(movie_id) REFERENCES movies(id) on delete cascade, PRIMARY KEY(movie_id, formats))''')
 # Creates or opens a file called filmabase.db
 
 conn = sqlite3.connect('filmbase.db')
