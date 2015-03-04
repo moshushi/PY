@@ -96,7 +96,8 @@ class Movie(object):
         global conn
         conn.text_factory = mystr
         cursor = conn.cursor()
-        cursor.execute('SELECT title, yearrelease, id FROM movies WHERE title LIKE ? ORDER by title', ('%{}%'.format(self.title),))
+        #cursor.execute('SELECT title, yearrelease, id FROM movies WHERE title LIKE ? ORDER by title', ('%{}%'.format(self.title),))
+        cursor.execute('SELECT title, id FROM movies WHERE title LIKE ? ORDER by title', ('%{}%'.format(self.title),))
         all_rows = cursor.fetchall()
         return all_rows
 
@@ -108,7 +109,7 @@ class Movie(object):
         #cursor.execute('''SELECT movie_id FROM movie_star INNER JOIN stars ON movie_star.star_id = stars.id WHERE stars.name LIKE ?''', ('%{}%'.format(self.stars),))
         cursor.execute('''SELECT a.title, a.id FROM movies a JOIN movie_star c ON a.id = c.movie_id JOIN stars b ON b.id = c.star_id WHERE b.name LIKE ?''', ('%{}%'.format(self.stars),))
         all_rows = cursor.fetchall()
-        print all_rows
+        return all_rows
 
 
 
@@ -217,17 +218,13 @@ Available commands:
         f = Movie('None', 'None', 'None', 'None', 'None')
         ows = f.listtitle()
         print 'List movies ordered by title with their id:'
-        for i in ows:
-            print i[0], '  id:', i[1]
-        #list2print3(ows)
+        list2print(ows)
         UI.user_input(self)
 
     def list_by_year(self):
         f = Movie('None', 'None', 'None', 'None', 'None')
         ows = f.listyear()
         print 'List movies ordered by year with their id:'
-#        for i in ows:
-#            print i[0], ' Year release: ', i[1],'  id:', i[2]
         list2print3(ows)
         UI.user_input(self)
 
@@ -235,16 +232,15 @@ Available commands:
         f = Movie('None', 'None', 'None', 'None', 'None')
         f.title = raw_input("Enter movie title: ")
         ows = f.findtitle()
-        list2print3(ows)
+        list2print(ows)
         UI.user_input(self)
 
     def find_by_star(self):
         f = Movie('None', 'None', 'None', 'None', 'None')
         f.stars= raw_input("Enter movie star: ")
-       # ows = f.findstar()
-       # list2print3(ows)
-       # UI.user_input(self)
-        f.findstar()
+        ows = f.findstar()
+        list2print(ows)
+        UI.user_input(self)
 
 
 def list2print3(input):
