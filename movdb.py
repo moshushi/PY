@@ -254,7 +254,11 @@ Available commands:
         filename = raw_input("Enter name file for import: ")
         with open (filename, 'r') as f:
             #for row in f:
-            content = f.read().splitlines()
+            #content = f.read().splitlines()
+            for line in f:
+                (key: val) = line.split()
+                d[int(key)] = val
+                print d
         print myl_list
 
 
