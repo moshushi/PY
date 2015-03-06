@@ -282,7 +282,7 @@ Available commands:
 
                 #print d
         #return myl_list
-        #print myl_list
+        print myl_list
         nums = len(myl_list)
         #print type(myl_list)
         #print myset
@@ -294,12 +294,21 @@ Available commands:
             f.title = owl['Title']
             f.ryear = owl['Release Year']
             f.formatm = owl['Format']
-            f.stars = owl['Stars']
+            people = owl['Stars']
+            print type(people)
+            z = people.split(',')
+            print type(z)
+            f.stars= z
+            ##z=[]
+            ##z = people.linespit(':')
+            ##print people
+            #f.stars = ",".join(owl['Stars'])
             #print (f.title, f.ryear, f.formatm, f.stars)
+           # print f.stars
             f.save()
             #print owl
             #print f.title
-            print 'Last importing %s film' % len(myl_list)
+            #print 'Last importing %s film' % len(myl_list)
         print '%s films imported' % nums
         UI.user_input(self)
 
