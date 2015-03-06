@@ -1,6 +1,6 @@
 # -*- coding: cp1251 -*-
 """Study task movie database film application
-alhpa relise
+alhpa release
 """
 import sqlite3
 #import sets
@@ -301,7 +301,7 @@ Available commands:
             #print f.title
             print 'Last importing %s film' % len(myl_list)
         print '%s films imported' % nums
-
+        UI.user_input(self)
 
 def list2print3(input):
     for i in input:
