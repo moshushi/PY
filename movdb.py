@@ -286,8 +286,17 @@ Available commands:
         print len(myl_list)
         print type(myl_list)
         #print myset
+        while myl_list:
+            owl = myl_list.pop()
+            print owl
         #while myl_list:
-        #    owl = myl_list.pop(0)
+        #    z = myl_list.pop(0)
+        #    print "z now is %s" % z
+        #    print "myl_list now is %s" % myl_list
+        #while len(myl_list):
+        #for el in xrange(len(myl_list)):
+        #for el in xrange(len(myl_list)):
+        #    owl = myl_list.pop()
         #    print owl
 
 
