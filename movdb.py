@@ -270,19 +270,21 @@ Available commands:
                    # myset.add(d)
                    # print 'added d to myset'
                     myl_list.append(d)
-                    print 'added d to mulist'
-                    d = {}
-                    print 'clearing d'
+                    ##print 'added d to mulist'
+                    ##d = {}
+                    ##print 'clearing d'
                 else:
                 #print line
                 #print line.split(':')
-                    (key, val) = line.split(':')
+                    (key, val) = line.split(':',1)
                     d[key] = val.strip(' \n')
                #(key, val) = line.strip().split(': ')
                # d[key.strip()] = val.strip()
 
-                print d
+                #print d
+        #return myl_list
         print myl_list
+        #print len(myl_list)
         #print myset
 
 
