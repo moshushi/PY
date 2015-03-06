@@ -270,36 +270,24 @@ Available commands:
                     print 'blank line'
                    # myset.add(d)
                    # print 'added d to myset'
-                    myl_list.append(d)
-                    ##print 'added d to mulist'
-                    ##d = {}
-                    ##print 'clearing d'
+##### Need attention - why?
+                    #myl_list.append(d)
+                    myl_list.append(d.copy())
+##### end
+
                 else:
-                #print line
-                #print line.split(':')
                     (key, val) = line.split(':',1)
                     d[key] = val.strip(' \n')
 
                 #print d
         #return myl_list
-        print myl_list
+        #print myl_list
         print len(myl_list)
-        print type(myl_list)
+        #print type(myl_list)
         #print myset
-        ###while myl_list:
-        ###    owl = myl_list.pop()
-        ###    print owl
-        #while myl_list:
-        #    z = myl_list.pop(0)
-        #    print "z now is %s" % z
-        #    print "myl_list now is %s" % myl_list
-        #while len(myl_list):
-        #for el in xrange(len(myl_list)):
-        #for el in xrange(len(myl_list)):
-        #    owl = myl_list.pop()
-        #    print owl
-        for item in myl_list:
-            print item
+        while myl_list:
+            owl = myl_list.pop()
+            print owl
 
 
 def list2print3(input):
