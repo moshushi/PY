@@ -256,10 +256,13 @@ Available commands:
             #for row in f:
             #content = f.read().splitlines()
             for line in f:
+                if line == '\n':
+                    print 'blank line'
+                else:
                 #print line
                 #print line.split(':')
-                (key, val) = line.split(':')
-                d[key] = val.strip(' \n')
+                    (key, val) = line.split(':')
+                    d[key] = val.strip(' \n')
                #(key, val) = line.strip().split(': ')
                # d[key.strip()] = val.strip()
 
