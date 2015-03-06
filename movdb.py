@@ -1,5 +1,6 @@
 # -*- coding: cp1251 -*-
 """Study task movie database film application
+alhpa relise
 """
 import sqlite3
 #import sets
@@ -267,7 +268,7 @@ Available commands:
                 #    print 'blank line'
 ## I'm think better way for check blank line
                 if not line.strip():
-                    print 'blank line'
+                   # print 'blank line'
                    # myset.add(d)
                    # print 'added d to myset'
 ##### Need attention - why?
@@ -282,12 +283,24 @@ Available commands:
                 #print d
         #return myl_list
         #print myl_list
-        print len(myl_list)
+        nums = len(myl_list)
         #print type(myl_list)
         #print myset
+        print "%s films for impori" % nums
+
         while myl_list:
+            f = Movie('None', 'None', 'None', 'None', 'None')
             owl = myl_list.pop()
-            print owl
+            f.title = owl['Title']
+            f.ryear = owl['Release Year']
+            f.formatm = owl['Format']
+            f.stars = owl['Stars']
+            #print (f.title, f.ryear, f.formatm, f.stars)
+            f.save()
+            #print owl
+            #print f.title
+            print 'Last importing %s film' % len(myl_list)
+        print '%s films imported' % nums
 
 
 def list2print3(input):
