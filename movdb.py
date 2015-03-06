@@ -282,7 +282,7 @@ Available commands:
 
                 #print d
         #return myl_list
-        print myl_list
+        #print myl_list
         nums = len(myl_list)
         #print type(myl_list)
         #print myset
@@ -295,10 +295,11 @@ Available commands:
             f.ryear = owl['Release Year']
             f.formatm = owl['Format']
             people = owl['Stars']
-            print type(people)
-            z = people.split(',')
-            print type(z)
-            f.stars= z
+            #print type(people)
+            #z = people.split(',')
+            #z = owl['Stars'].split(',')
+            #print type(z)
+            f.stars= owl['Stars'].split(',')
             ##z=[]
             ##z = people.linespit(':')
             ##print people
