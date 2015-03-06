@@ -2,6 +2,7 @@
 """Study task movie database film application
 """
 import sqlite3
+#import sets
 
 global conn
 global myl
@@ -250,14 +251,28 @@ Available commands:
 
     def importfile(self):
         myl_list = []
+       # I can't use myset, becouse:
+       #    ### myset.add(d)
+       #    ### TypeError: unhashable type: 'dict'
+       # myset = set()
+
         d = {}
         filename = raw_input("Enter name file for import: ")
         with open (filename, 'r') as f:
             #for row in f:
             #content = f.read().splitlines()
             for line in f:
-                if line == '\n':
+                #if line == '\n':
+                #    print 'blank line'
+## I'm think better way for check blank line
+                if not line.strip():
                     print 'blank line'
+                   # myset.add(d)
+                   # print 'added d to myset'
+                    myl_list.append(d)
+                    print 'added d to mulist'
+                    d = {}
+                    print 'clearing d'
                 else:
                 #print line
                 #print line.split(':')
@@ -268,6 +283,7 @@ Available commands:
 
                 print d
         print myl_list
+        #print myset
 
 
 def list2print3(input):
