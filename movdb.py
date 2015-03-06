@@ -155,7 +155,7 @@ class UI(object):
         elif UI.ch == 'find by star':
             UI.find_by_star(self)
         elif UI.ch == 'import':
-            UI.import(self)
+            UI.importfile(self)
         else:
             UI.start(self)
 
@@ -248,7 +248,7 @@ Available commands:
         list2print(ows)
         UI.user_input(self)
 
-    def import(self):
+    def importfile(self):
         myl_list = []
         d = {}
         filename = raw_input("Enter name file for import: ")
@@ -256,8 +256,13 @@ Available commands:
             #for row in f:
             #content = f.read().splitlines()
             for line in f:
-                (key: val) = line.split()
-                d[int(key)] = val
+                #print line
+                #print line.split(':')
+                (key, val) = line.split(':')
+                d[key] = val.strip(' \n')
+               #(key, val) = line.strip().split(': ')
+               # d[key.strip()] = val.strip()
+
                 print d
         print myl_list
 
