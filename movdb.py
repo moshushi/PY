@@ -256,7 +256,8 @@ Available commands:
        #    ### TypeError: unhashable type: 'dict'
        # myset = set()
 
-        d = {}
+        #d = {}
+        d = dict()
         filename = raw_input("Enter name file for import: ")
         with open (filename, 'r') as f:
             #for row in f:
@@ -278,14 +279,16 @@ Available commands:
                 #print line.split(':')
                     (key, val) = line.split(':',1)
                     d[key] = val.strip(' \n')
-               #(key, val) = line.strip().split(': ')
-               # d[key.strip()] = val.strip()
 
                 #print d
         #return myl_list
         print myl_list
-        #print len(myl_list)
+        print len(myl_list)
+        print type(myl_list)
         #print myset
+        #while myl_list:
+        #    owl = myl_list.pop(0)
+        #    print owl
 
 
 def list2print3(input):
