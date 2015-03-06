@@ -286,9 +286,9 @@ Available commands:
         print len(myl_list)
         print type(myl_list)
         #print myset
-        while myl_list:
-            owl = myl_list.pop()
-            print owl
+        ###while myl_list:
+        ###    owl = myl_list.pop()
+        ###    print owl
         #while myl_list:
         #    z = myl_list.pop(0)
         #    print "z now is %s" % z
@@ -298,6 +298,8 @@ Available commands:
         #for el in xrange(len(myl_list)):
         #    owl = myl_list.pop()
         #    print owl
+        for item in myl_list:
+            print item
 
 
 def list2print3(input):
