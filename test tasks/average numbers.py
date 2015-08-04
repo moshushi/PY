@@ -27,9 +27,7 @@ def assembly_list(x):
     # assembly to list only numbers
     out_list = ['ok', 'OK']
 
-    if x in out_list:
-        pass
-    elif x.isdigit():
+    if x not in out_list:
         l.append(int(x))
         assembly_list(input_number())
     else:
