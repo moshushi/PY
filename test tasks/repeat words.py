@@ -11,8 +11,7 @@ while loop == 1:
         loop = 0    
     else:
         if 'z' in word:
-            print word + " " + word + " " + word
+            word += 2 * (" " + word)
         elif 'a' in word:
-            print word + " " + word
-        else:
-            print word
+            word += (" " + word)
+        print word
