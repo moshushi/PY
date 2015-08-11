@@ -10,6 +10,7 @@ current_charaster = ''
 RUNNING_TIME = 200
 
 #music dictionary
+# http://pro-radio.ru/user/uploads/108188.jpg
 
 piano_dic = {'a': 261.25, 's': 277.18, 'd': 293.66, 'f': 311.13, \
         'g': 329.63, 'h': 349.23, 'j': 369.99, 'k': 392.00, 'l': 415.30,\
