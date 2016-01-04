@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 
+"""
+Source http://youtu.be/KPXPr-KS-qk
+"""
+
 import requests
 from bs4 import BeautifulSoup
 
-BASE_URL = "http://freelance.ru"
+BASE_URL = 'https://freelance.ru/projects/filter/'
 
 
 def get_html(url):
@@ -13,25 +17,22 @@ def get_html(url):
 
 def parse(html):
     soup = BeautifulSoup(html)
-    # table = soup.find('class', id="s_projects")
-    # table = soup.find_all(attrs={"class": 'section', "id": 's_projects'})
-    table = soup.find(class_='section', id='s_projects')
-    rows = table.find_all(class_='proj public prio')
-    pass
-    # return rows
-    print soup.prettify().encode('utf-8')
+    # print soup.prettify().encode('utf-8')
+    table = soup.find(class_='projects')
+    # print table.prettify().encode('utf-8')
+    rows = table.find_all(class_='p_title')
+    # print rows.prettify().encode('utf-8')
+    for i in rows:
+        print i.prettify().encode('utf-8')
 
-def out_console(res):
+
+def output_console(res):
     return res.encode('utf-8')
 
 
 def main():
-    # print get_parse((get_html))
-    # print out_console(get_html(BASE_URL))
-    # get_parse(get_html(BASE_URL))
-    # print parse(get_html(BASE_URL))
+    # print output_console(get_html(BASE_URL))
     parse(get_html(BASE_URL))
-    pass
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
