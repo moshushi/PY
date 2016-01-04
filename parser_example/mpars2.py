@@ -2,6 +2,7 @@
 
 """
 Source http://youtu.be/KPXPr-KS-qk
+http://wiki.python.su/%D0%94%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D0%B8/BeautifulSoup
 """
 
 import requests
@@ -28,22 +29,18 @@ def parse(html):
     projects = []
 
     for row in table.find_all(class_='p_title'):
-        bol = row.find_all(class_='ptitle').span.renderContents()
-        print bol
-        bol = row.find(class_='ptitle').span
-        print bol
-        print 'hhh'
-        col = row.find('span')
-        print col
-        cols = row.find_all('span')
-        print cols
-        # print type(cols)
+        bols = row.find(class_='ptitle').span.renderContents()
+    #    print bols
+
+        prices = row.find_all(class_='hidden-xs')
+        print prices
+
         projects.append({
-            'title': cols[0]
+            'title': bols
         })
 
-   #  for project in projects:
-   #      print project
+    for project in projects:
+        print project
 
 def output_console(res):
     return res.encode('utf-8')
