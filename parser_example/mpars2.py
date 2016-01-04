@@ -28,6 +28,9 @@ def parse(html):
     projects = []
 
     for row in table.find_all(class_='p_title'):
+        bol = row.find(class_='ptitle').span
+        print bol
+        print 'hhh'
         col = row.find('span')
         print col
         cols = row.find_all('span')
