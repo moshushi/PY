@@ -28,6 +28,8 @@ def parse(html):
     projects = []
 
     for row in table.find_all(class_='p_title'):
+        bol = row.find_all(class_='ptitle').span.renderContents()
+        print bol
         bol = row.find(class_='ptitle').span
         print bol
         print 'hhh'
