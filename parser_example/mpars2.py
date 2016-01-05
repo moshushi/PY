@@ -30,17 +30,31 @@ def parse(html):
 
     for row in table.find_all(class_='p_title'):
         bols = row.find(class_='ptitle').span.renderContents()
-    #    print bols
+        print bols
 
-        prices = row.find_all(class_='hidden-xs')
+        # prices = row.find_all(class_='hidden-xs')
+        prices = row.find_all('b')
         print prices
 
+        ## work with pymode out, not in python-shell
+        # for line in prices:
+        #     # print line.__str__()
+        #     print line.renderContents()
+
+        ## work with pymode out, not in python-shell
+        # for line in prices:
+        #     print line.encode('utf-8')
+
+        # print unicode.join(u'\n',map(unicode,prices))
+
         projects.append({
-            'title': bols
+            'title': bols,
+            'price': prices
         })
 
     for project in projects:
-        print project
+        # print project
+        pass
 
 def output_console(res):
     return res.encode('utf-8')
