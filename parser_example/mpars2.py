@@ -3,6 +3,9 @@
 """
 Source http://youtu.be/KPXPr-KS-qk
 http://wiki.python.su/%D0%94%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D0%B8/BeautifulSoup
+http://wiki.python.su/Документации/BeautifulSoup
+http://wiki.python.su/Beautiful_Soup/3.1.0
+
 """
 
 import requests
