@@ -40,13 +40,25 @@ def get_html_count(url):
         .a['href'].lstrip('/jobs/?page='))
     return pagination
 
+def parse(url):
+    """
+    Parse current page and append result to list
+    """
+#     html_doc = get_html(url)
+    html_doc = get_html_local()
+    soup = BeautifulSoup(html_doc, 'html.parser')
+#     print soup.prettify().encode('utf-8')
+    table = soup.find('div', class_="container-fluid cols_table show_visited")
+#     print table.prettify().encode('utf-8')
+#     check_tag = soup.find('div', class_="container-fluid \
+#                             cols_table show_visited")
+#     print type(check_tag)
+
+
 
 def main():
     pass
-#     print get_html_count(BASE_URL)
-#      print local_html()
-#     print get_html(BASE_URL).encode('utf-8')
-#     get_html_local()
+#     print parse(BASE_URL)
 
 
 if __name__=='__main__':
