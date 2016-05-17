@@ -17,16 +17,17 @@ class TestDownl(unittest.TestCase):
 
 class TestParse(unittest.TestCase):
     def setUp(self):
-
-        self.testdata = get_html_local()
+        self.testdata = webparser21.get_html_local()
 
     @patch('webparser21.get_html')
 #     @patch('get_html')
     def test_get_page_count(self, BASE_URL):
 #         get_html.return_value = self.testdata
-        webparser21.get_html.return_value = webparser21.get_html_local()
+#         webparser21.get_html.return_value = webparser21.get_html_local()
+        webparser21.get_html.return_value = self.testdata
 #         get_html.return_value = webparser21.get_html_local()
         self.assertIsInstance(webparser21.get_html_count(BASE_URL), int)
+        self.assertIs(webparser21.get_html_count(BASE_URL), 152)
 
 def main():
     unittest.main()
