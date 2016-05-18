@@ -30,11 +30,10 @@ class TestParse(unittest.TestCase):
 
     def test_parse_table_have_tag(self):
         soup = self.soup
-        check_tag = len(soup.find('div', class_="container-fluid \
+        check_tag = len(soup.findAll('div', class_="container-fluid \
                                   cols_table show_visited"))
         # Ensure soup have tag table
-#         self.assertIsInstance(check_tag, <class "bs4.element.Tag"))
-        self.assertIsInstance(check_tag, int)
+        self.assertIs(check_tag, 1)
 
 
 #     @patch(__name__+"parse", Mock())
