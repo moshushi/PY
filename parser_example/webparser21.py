@@ -9,7 +9,8 @@ from bs4 import BeautifulSoup
 
 import os
 
-BASE_URL = "https://www.weblancer.net/jobs/"
+BASE_URL = "http://localhost/"
+# BASE_URL = "https://www.weblancer.net/jobs/"
 # BASE_URL = "https://www.weblancer.net/jobs/?type=project"
 TESTDATA_FILENAME = os.path.join(os.path.dirname(__file__), 'html.html')
 
@@ -47,13 +48,20 @@ def parse(url):
 #     html_doc = get_html(url)
     html_doc = get_html_local()
     soup = BeautifulSoup(html_doc, 'html.parser')
-#     print soup.prettify().encode('utf-8')
     table = soup.find('div', class_="container-fluid cols_table show_visited")
-#     print table.prettify().encode('utf-8')
-#     check_tag = soup.find('div', class_="container-fluid \
-#                             cols_table show_visited")
-#     print type(check_tag)
 
+    jobstats = []
+
+    for row in table:
+        jobstats.append({
+            "title":row.find('div', class_="col-sm-7").a.text,
+            "category":row.find('div', class_="text-muted").a.text,
+            "price":row.find('div', class_="col-sm-2 amount title").text.strip(),
+            "applications":row.find('div', class_="col-sm-3 text-right text-nowrap hidden-xs").text.strip()
+        })
+
+
+    return jobstats
 
 
 def main():

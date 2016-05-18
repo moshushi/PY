@@ -37,13 +37,11 @@ class TestParse(unittest.TestCase):
         self.assertIs(check_tag, 1)
 
 
-#     @patch(__name__+"parse", Mock())
+    @patch("webparser21.parse", Mock())
     def _test_parse_table_correct_call(self):
-        soup = self.soup
+        webparser21.BeautifulSoup.return_value = self.soup
         # how we can check correct tag in soup.find for table?
         pass
-
-
 
 
 def main():
