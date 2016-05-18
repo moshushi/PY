@@ -9,7 +9,7 @@ import webparser21
 class TestDownl(unittest.TestCase):
 
     @patch(__name__+".get_html", Mock())
-    def test_get_html(self):
+    def _test_get_html(self):
         get_html(BASE_URL)
         # Ensure correct url, called once
         get_html.assert_called_once_with\
@@ -28,16 +28,18 @@ class TestParse(unittest.TestCase):
         self.assertIs(webparser21.get_html_count(BASE_URL), 152)
 
 
+    @patch('webparser21.BeautifulSoup', Mock())
     def test_parse_table_have_tag(self):
-        soup = self.soup
-        check_tag = len(soup.findAll('div', class_="container-fluid \
+        webparser21.BeautifulSoup.return_value = self.soup
+        check_tag = len(self.soup.findAll('div', class_="container-fluid \
                                   cols_table show_visited"))
         # Ensure soup have tag table
         self.assertIs(check_tag, 1)
 
 
 #     @patch(__name__+"parse", Mock())
-    def test_parse_table_correct_call(self):
+    def _test_parse_table_correct_call(self):
+        soup = self.soup
         # how we can check correct tag in soup.find for table?
         pass
 
