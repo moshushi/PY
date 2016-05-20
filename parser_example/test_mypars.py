@@ -1,10 +1,11 @@
-import unittest, os
+# -*- coding: utf-8 -*-
+"""
+Unittests for webparser21
+"""
+
+import unittest
 from mock import patch, Mock
-
-from webparser21 import get_html, BASE_URL, get_html_local
-import webparser21
-
-
+import webparser21 as wpars
 
 class TestDownl(unittest.TestCase):
 
@@ -18,35 +19,34 @@ class TestDownl(unittest.TestCase):
 
 class TestParse(unittest.TestCase):
     def setUp(self):
-        self.testdata = webparser21.get_html_local()
-        self.soup = webparser21.BeautifulSoup(self.testdata, 'html.parser')
-
-    @patch('webparser21.get_html')
-    def test_get_page_count(self, BASE_URL):
-        webparser21.get_html.return_value = self.testdata
-        self.assertIsInstance(webparser21.get_html_count(BASE_URL), int)
-        self.assertIs(webparser21.get_html_count(BASE_URL), 152)
+        self.html_doc = wpars.get_html_local()
+        self.data_dict = {'title': u'Авторы учебных студенческих работ',
+                          'category': u'Дипломы/Курсовые/Рефераты',
+                          'price': '$1000',
+                          'applications': u'24 заявки'
+                          }
 
 
-    @patch('webparser21.BeautifulSoup', Mock())
-    def test_parse_table_have_tag(self):
-        webparser21.BeautifulSoup.return_value = self.soup
-        check_tag = len(self.soup.findAll('div', class_="container-fluid \
-                                  cols_table show_visited"))
-        # Ensure soup have tag table
-        self.assertIs(check_tag, 1)
+    def test_get_page_count(self):
+        paggination = wpars.get_html_count(self.html_doc)
+        self.assertIsInstance(paggination, int)
+        self.assertIs(paggination, 152)
 
+    def test_parse(self):
+        html = wpars.get_html_local()
+        data = wpars.parse(html)
+        self.assertIsInstance(data, list)
+        self.assertIsInstance(data[0], dict)
+        self.assertEqual(data[2]["price"], '$1000')
+        self.assertEqual(data[2]["applications"], u'24 заявки')
+        self.assertDictEqual(data[2], self.data_dict)
+        self.assertGreater(len(data), 10)
 
-    @patch("webparser21.parse", Mock())
-    def _test_parse_table_correct_call(self):
-        webparser21.BeautifulSoup.return_value = self.soup
-        # how we can check correct tag in soup.find for table?
-        pass
 
 
 def main():
     unittest.main()
-#     get_html_local()
 
-if __name__=='__main__':
+if __name__=="__main__":
     main()
+
