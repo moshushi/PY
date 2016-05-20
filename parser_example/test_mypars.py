@@ -42,7 +42,10 @@ class TestParse(unittest.TestCase):
         self.assertDictEqual(data[2], self.data_dict)
         self.assertGreater(len(data), 10)
 
-
+    @patch('webparser21.get_html', Mock())
+    def test_process_page(self):
+        wpars.get_html.return_value = self.html_doc
+        self.assertIsInstance(wpars.process_page(BASE_URL), list)
 
 def main():
     unittest.main()

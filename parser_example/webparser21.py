@@ -54,8 +54,8 @@ def process_page(url):
     """
     Processing page
     """
-#     html = get_html(url)
-    html = get_html_local()
+    html = get_html(url)
+#     html = get_html_local()
     data = parse(html)
     return data
 
