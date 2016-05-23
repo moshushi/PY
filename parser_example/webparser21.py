@@ -1,10 +1,16 @@
 # -*- encoding: utf-8 -*-
+"""
+Made in python 2.7.10
+Script downloads and wraps projects from http://weblancer.net/
+Script covered unittest =)
+Source http://youtu.be/KPXPr-KS-qk
+"""
 
 import requests, csv
 from bs4 import BeautifulSoup
 
-BASE_URL = "http://localhost/"
-# BASE_URL = "https://www.weblancer.net/jobs/"
+# BASE_URL = "http://localhost/"
+BASE_URL = "https://www.weblancer.net/jobs/"
 NAME_COLUMM = ['Проект', 'Категори', 'Цена', 'Заявки']
 PATH_FILE = 'proje.csv'
 
@@ -23,6 +29,7 @@ def get_html(url):
     Get html from website
     """
     r = requests.get(url)
+    print r.status
     return r.text
 
 def get_html_count(html_doc):
@@ -30,7 +37,8 @@ def get_html_count(html_doc):
     Get pagination number
     """
     soup = BeautifulSoup(html_doc, 'html.parser')
-    pagination = int(soup.find('ul', class_="pagination").findAll('li')[-1].a['href'].lstrip('/jobs/?page='))
+    pagination = int(soup.find('ul', class_="pagination").findAll('li')[-1].
+                     a['href'].lstrip('/jobs/?page='))
     return pagination
 
 def parse(html_doc):
@@ -55,8 +63,8 @@ def process_page(url):
     """
     Processing page
     """
-#     html = get_html(url)
-    html = get_html_local()
+    html = get_html(url)
+#     html = get_html_local()
     data = parse(html)
     return data
 
@@ -64,8 +72,8 @@ def parsing_all_page(url):
     """
     Parse all site uses page count
     """
-#     html_doc = get_html(url)
-    html_doc = get_html_local()
+    html_doc = get_html(url)
+#     html_doc = get_html_local()
     page_count = get_html_count(html_doc)
     print 'All have find pages %d' % page_count
 
@@ -118,10 +126,12 @@ def save(projects, path):
 
 
 def main():
-    data = process_page(BASE_URL)
-    save(data, PATH_FILE)
+#     data = process_page(BASE_URL)
 
-    pass
+#     data = parsing_all_page(BASE_URL)
+#     save(data, PATH_FILE)
+
+    get_html(BASE_URL)
 
 if __name__ == '__main__':
     main()

@@ -10,7 +10,7 @@ import webparser21 as wpars
 class TestDownl(unittest.TestCase):
 
     @patch("webparser21.get_html", Mock())
-    def _test_get_html(self):
+    def test_get_html(self):
         wpars.get_html(wpars.BASE_URL)
         # Ensure correct url, called once
         wpars.get_html.assert_called_once_with\
@@ -92,14 +92,6 @@ class TestSave(unittest.TestCase):
 'Дипломы/Курсовые/Рефераты','','исполнитель выбран',
 'Авторы учебных студенческих работ','Дипломы/Курсовые/Рефераты','$1000',
 '24 заявки']
-
-#         self.data_tuples = ("sep=,", 'Проект', 'Категори', 'Цена', 'Заявки',
-# 'Комплексное продвижение сайта (Игровая тематика: counter strike)',
-# 'Поисковые системы (SEO)','','4 заявки',
-# 'Реферат по философии на тему "Специфика познания в медицине"',
-# 'Дипломы/Курсовые/Рефераты','','исполнитель выбран',
-# 'Авторы учебных студенческих работ','Дипломы/Курсовые/Рефераты','$1000',
-# '24 заявки')
 
     def test_recode_for_write(self):
         data = wpars.recode_for_write(wpars.NAME_COLUMM)
