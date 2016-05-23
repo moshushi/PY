@@ -28,9 +28,15 @@ def get_html(url):
     """
     Get html from website
     """
-    r = requests.get(url)
-    print r.status
-    return r.text
+    try:
+        response = requests.get(url)
+    except requests.exceptions.ConnectionError as e:
+        print "Site %s isn't accessibility" % BASE_URL
+    except requests.exceptions.ReadTimeout as e:
+        print "Error: Read Timeout"
+    except requests.exceptions.HTTPError as e:
+        print "Get an HTTPError:", e.message
+    return response.text
 
 def get_html_count(html_doc):
     """
@@ -54,8 +60,11 @@ def parse(html_doc):
         jobstats.append({
             "title":row.find('div', class_="col-sm-7").a.text,
             "category":row.find('div', class_="text-muted").a.text,
-            "price":row.find('div', class_="col-sm-2 amount title").text.strip(),
-            "applications":row.find('div', class_="col-sm-3 text-right text-nowrap hidden-xs").text.strip()
+            "price":row.find('div', class_="col-sm-2 amount title").
+            text.strip(),
+            "applications":row.find(
+                'div', class_="col-sm-3 text-right text-nowrap hidden-xs"
+            ).text.strip()
         })
     return jobstats
 
@@ -109,7 +118,6 @@ def save(projects, path):
     Write projects to excel csv file
     """
     with open(path,'w') as csvfile:
-#         writer = csv.writer(csvfile, delimiter=',', quotechar='"', lineterminator='\n')
         writer = csv.writer(csvfile, delimiter=',', lineterminator='\n')
         # string for help MS Excel
         writer.writerow(["sep=,"])
@@ -127,11 +135,8 @@ def save(projects, path):
 
 def main():
 #     data = process_page(BASE_URL)
-
-#     data = parsing_all_page(BASE_URL)
-#     save(data, PATH_FILE)
-
-    get_html(BASE_URL)
+    data = parsing_all_page(BASE_URL)
+    save(data, PATH_FILE)
 
 if __name__ == '__main__':
     main()

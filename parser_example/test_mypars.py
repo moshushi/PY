@@ -7,9 +7,11 @@ import unittest, sys, os, csv
 from mock import patch, Mock, mock_open
 import webparser21 as wpars
 
+NAME_MODULE = 'webparser21'
+
 class TestDownl(unittest.TestCase):
 
-    @patch("webparser21.get_html", Mock())
+    @patch(NAME_MODULE+".get_html", Mock())
     def test_get_html(self):
         wpars.get_html(wpars.BASE_URL)
         # Ensure correct url, called once
@@ -42,12 +44,12 @@ class TestParse(unittest.TestCase):
         self.assertDictEqual(data[2], self.data_dict)
         self.assertGreater(len(data), 10)
 
-    @patch('webparser21.get_html', Mock())
+    @patch(NAME_MODULE+'.get_html', Mock())
     def test_process_page(self):
         wpars.get_html.return_value = self.html_doc
         self.assertIsInstance(wpars.process_page(wpars.BASE_URL), list)
 
-    @patch('webparser21.get_html', Mock())
+    @patch(NAME_MODULE+'.get_html', Mock())
     def test_parsing_all_page(self):
         wpars.get_html.return_value = self.html_doc
         mock_stdout = Mock()
@@ -63,6 +65,7 @@ class TestParse(unittest.TestCase):
 
 class TestSave(unittest.TestCase):
     def setUp(self):
+        self.TEST_FILENAME = os.path.join(os.path.dirname(__file__), 'test.csv')
         self.data_list = [{'title': u'Комплексное продвижение сайта (Игровая тематика: counter strike)',
                            'category': u'Поисковые системы (SEO)',
                            'price': u'',
@@ -113,10 +116,9 @@ class TestSave(unittest.TestCase):
 
 
     def test_save_2(self):
-        TEST_FILENAME = os.path.join(os.path.dirname(__file__), 'test.csv')
-        wpars.save(self.data_list, TEST_FILENAME)
+        wpars.save(self.data_list, self.TEST_FILENAME)
         read_list=[]
-        with open(TEST_FILENAME, 'r') as csvfile:
+        with open(self.TEST_FILENAME, 'r') as csvfile:
             reader = csv.reader(csvfile, delimiter=',')
             for row in reader:
                 read_list.extend(row)
@@ -127,9 +129,13 @@ class TestSave(unittest.TestCase):
 
         self.assertSequenceEqual(list_actual, list_example)
 
-
-
-
+    def tearDown(self):
+        del self.data_list
+        del self.data_dict
+        del self.data_test_list
+        if os.path.isfile(self.TEST_FILENAME):
+            os.remove(self.TEST_FILENAME)
+        del self.TEST_FILENAME
 
 
 def main():
@@ -137,4 +143,3 @@ def main():
 
 if __name__=="__main__":
     main()
-
