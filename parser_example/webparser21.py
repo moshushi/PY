@@ -101,9 +101,10 @@ def save(projects, path):
     Write projects to excel csv file
     """
     with open(path,'w') as csvfile:
+#         writer = csv.writer(csvfile, delimiter=',', quotechar='"', lineterminator='\n')
         writer = csv.writer(csvfile, delimiter=',', lineterminator='\n')
         # string for help MS Excel
-        writer.writerow(['sep=,'])
+        writer.writerow(["sep=,"])
         # Table name_columm
         writer.writerow(recode_for_write(NAME_COLUMM))
 
