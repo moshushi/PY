@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 # BASE_URL = "http://localhost/"
 BASE_URL = "https://www.weblancer.net/jobs/"
-NAME_COLUMM = ['Проект', 'Категори', 'Цена', 'Заявки']
+NAME_COLUMM = ['Проект', 'Категории', 'Цена', 'Заявки']
 PATH_FILE = 'proje.csv'
 
 def get_html_local():
