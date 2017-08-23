@@ -19,14 +19,10 @@ class CodeStyle(type):
 
         return super(CodeStyle, cls).__new__(cls, name, bases, camelcase_attr)
 
-# class Foo(metaclass=CodeStyle):
-#     bar = 'bip'
-
-# f = Foo()
-# print(f.Bar)
 
 class MyAwesomeClass(metaclass=CodeStyle):
     def some_method(self):
         pass
 
 print(MyAwesomeClass.SomeMethod)
+
