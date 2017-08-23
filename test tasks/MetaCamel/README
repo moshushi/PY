@@ -2,19 +2,20 @@
 который будет приводить стиль наименования всех методов и свойств класса
 к заданному (CamelSpace)
 
+ПРИМЕЧАНИЯ К УСТАНОВКЕ
 
-После установки зависимостей
+После установки зависимостей:
 pip install -r requirements.txt
 
-Запустить brown.py из директории script (Установка corpa\brown из nltk)
+Запустить script\brown.py (Установка corpa\brown из nltk)
 
-Для тестирования используется pytest
+РЕАЛИЗАЦИЯ
 
 camel.py - реализация разбивки сложного слова на простые
-MetaCamel.py - релизация метакласа
+MetaCamel.py - релизация метаклаccа
 
 
-Пример использования:
+ПРИМЕР ИСПОЛЬЗОВАНИЯ:
 from MetaCamel import CodeStyle
 
 class MyAwesomeClass(metaclass=CodeStyle):
