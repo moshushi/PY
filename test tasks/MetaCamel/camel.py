@@ -2,6 +2,8 @@
 to split text without spaces into list of words
 https://stackoverflow.com/questions/38125281/split-sentence-without-space-in-python-nltk
 Need install corpora/brown from nltk
+>> import nltk
+>> nltk.download('brown')
 """
 
 from collections import Counter
