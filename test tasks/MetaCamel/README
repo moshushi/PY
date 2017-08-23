@@ -2,6 +2,7 @@
 который будет приводить стиль наименования всех методов и свойств класса
 к заданному (CamelSpace)
 
+
 После установки зависимостей
 pip install -r requirements.txt
 
@@ -11,3 +12,13 @@ pip install -r requirements.txt
 
 camel.py - реализация разбивки сложного слова на простые
 MetaCamel.py - релизация метакласа
+
+
+Пример использования:
+from MetaCamel import CodeStyle
+
+class MyAwesomeClass(metaclass=CodeStyle):
+    def some_method(self):
+        pass
+
+print(MyAwesomeClass.SomeMethod)
