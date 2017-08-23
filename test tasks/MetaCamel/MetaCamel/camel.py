@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 to split text without spaces into list of words
 https://stackoverflow.com/questions/38125281/split-sentence-without-space-in-python-nltk
